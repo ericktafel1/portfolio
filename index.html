@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erick Tafel | DH4BI | Cybersecurity Engineer</title>
+    <title>Erick Tafel | Cybersecurity Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -14,9 +15,11 @@
         :root {
             --neon-green: #00ff41;
             --dark-bg: #000000;
-            --card-bg: #232323;
+            --card-bg: #1a1a1a;
             --text-primary: #e0e0e0;
             --text-secondary: #a0a0a0;
+            --glitch-pink: #ff0080;
+            --glitch-cyan: #00ffff;
         }
 
         body {
@@ -24,6 +27,7 @@
             background: var(--dark-bg);
             color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
@@ -32,18 +36,24 @@
             padding: 2rem;
         }
 
-        /* Glitch Effect */
-        .glitch {
+        /* Sharper Glitch Effect - Only for Title and Footer */
+        .glitch-title, .glitch-footer {
             position: relative;
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+            font-size: 3.5rem;
+            font-weight: bold;
             color: var(--neon-green);
             text-shadow: 0 0 10px var(--neon-green);
-            animation: glitch-main 3s infinite;
+            display: inline-block;
         }
 
-        .glitch::before,
-        .glitch::after {
+        .glitch-footer {
+            font-size: 1.5rem;
+        }
+
+        .glitch-title::before,
+        .glitch-title::after,
+        .glitch-footer::before,
+        .glitch-footer::after {
             content: attr(data-text);
             position: absolute;
             top: 0;
@@ -52,92 +62,100 @@
             height: 100%;
         }
 
-        .glitch::before {
-            left: 2px;
-            text-shadow: -2px 0 #ff00de;
-            clip: rect(24px, 550px, 90px, 0);
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        .glitch-title::before,
+        .glitch-footer::before {
+            left: 3px;
+            text-shadow: -3px 0 var(--glitch-pink);
+            animation: glitch-slice-1 0.5s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
         }
 
-        .glitch::after {
-            left: -2px;
-            text-shadow: -2px 0 #00fff9, 2px 2px #ff00de;
-            clip: rect(85px, 550px, 140px, 0);
-            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        .glitch-title::after,
+        .glitch-footer::after {
+            left: -3px;
+            text-shadow: 3px 0 var(--glitch-cyan);
+            animation: glitch-slice-2 0.5s infinite;
+            clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
         }
 
-        @keyframes glitch-main {
-            0%, 90%, 100% {
+        @keyframes glitch-slice-1 {
+            0%, 100% {
                 transform: translate(0);
+                clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
             }
-            91%, 93%, 95%, 97%, 99% {
-                transform: translate(-2px, 2px);
-            }
-            92%, 94%, 96%, 98% {
-                transform: translate(2px, -2px);
-            }
-        }
-
-        @keyframes glitch-anim-1 {
-            0% {
-                clip: rect(61px, 9999px, 85px, 0);
+            10% {
+                transform: translate(-5px, -5px);
+                clip-path: polygon(0 10%, 100% 10%, 100% 55%, 0 55%);
             }
             20% {
-                clip: rect(53px, 9999px, 18px, 0);
+                transform: translate(5px, 5px);
+                clip-path: polygon(0 20%, 100% 20%, 100% 65%, 0 65%);
+            }
+            30% {
+                transform: translate(-5px, 5px);
+                clip-path: polygon(0 5%, 100% 5%, 100% 35%, 0 35%);
             }
             40% {
-                clip: rect(28px, 9999px, 95px, 0);
+                transform: translate(5px, -5px);
+                clip-path: polygon(0 15%, 100% 15%, 100% 45%, 0 45%);
             }
-            60% {
-                clip: rect(71px, 9999px, 43px, 0);
-            }
-            80% {
-                clip: rect(14px, 9999px, 66px, 0);
-            }
-            100% {
-                clip: rect(88px, 9999px, 31px, 0);
+            50% {
+                transform: translate(-3px, 3px);
+                clip-path: polygon(0 25%, 100% 25%, 100% 70%, 0 70%);
             }
         }
 
-        @keyframes glitch-anim-2 {
-            0% {
-                clip: rect(86px, 9999px, 31px, 0);
+        @keyframes glitch-slice-2 {
+            0%, 100% {
+                transform: translate(0);
+                clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
             }
-            20% {
-                clip: rect(19px, 9999px, 94px, 0);
+            15% {
+                transform: translate(5px, -5px);
+                clip-path: polygon(0 60%, 100% 60%, 100% 95%, 0 95%);
             }
-            40% {
-                clip: rect(77px, 9999px, 12px, 0);
+            25% {
+                transform: translate(-5px, 5px);
+                clip-path: polygon(0 55%, 100% 55%, 100% 85%, 0 85%);
             }
-            60% {
-                clip: rect(34px, 9999px, 68px, 0);
+            35% {
+                transform: translate(5px, 5px);
+                clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
             }
-            80% {
-                clip: rect(51px, 9999px, 29px, 0);
+            45% {
+                transform: translate(-5px, -5px);
+                clip-path: polygon(0 50%, 100% 50%, 100% 80%, 0 80%);
             }
-            100% {
-                clip: rect(63px, 9999px, 85px, 0);
+            55% {
+                transform: translate(3px, -3px);
+                clip-path: polygon(0 65%, 100% 65%, 100% 90%, 0 90%);
             }
         }
 
-        /* Header/Hero Section */
+        /* Header */
         header {
             text-align: center;
             padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--card-bg) 100%);
-            border-bottom: 2px solid var(--neon-green);
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #0a0a0a 100%);
+            border-bottom: 3px solid var(--neon-green);
             margin-bottom: 3rem;
+            position: relative;
         }
 
-        h1 {
-            font-size: 3rem;
+        .alias {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
             margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            font-family: monospace;
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin: 1rem 0;
+            font-weight: 300;
         }
 
         .roles {
@@ -145,25 +163,63 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .role-tag {
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 65, 0.1);
-            border: 1px solid var(--neon-green);
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 255, 65, 0.05);
+            border: 2px solid var(--neon-green);
             border-radius: 4px;
             font-size: 0.9rem;
+            transition: all 0.3s ease;
         }
 
-        /* Terminal Section */
+        .role-tag:hover {
+            background: rgba(0, 255, 65, 0.15);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        }
+
+        /* Status Indicators */
+        .status-bar {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 4px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Terminal */
         .terminal {
             background: #000;
             border: 2px solid var(--neon-green);
             border-radius: 8px;
             padding: 1rem;
             margin: 2rem 0;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
         }
 
         .terminal-header {
@@ -191,6 +247,15 @@
 
         .terminal-line {
             margin: 0.5rem 0;
+        }
+
+        .terminal-line a {
+            color: var(--glitch-cyan);
+            text-decoration: underline;
+        }
+
+        .terminal-line a:hover {
+            color: var(--neon-green);
         }
 
         .prompt {
@@ -227,43 +292,75 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Content Sections */
+        /* Sections */
         section {
-            margin: 3rem 0;
+            margin: 4rem 0;
         }
 
         h2 {
             font-size: 2rem;
             color: var(--neon-green);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--neon-green);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
+        h2 i {
+            font-size: 1.5rem;
+        }
+
+        /* Cards */
         .cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
 
         .card {
             background: var(--card-bg);
-            padding: 1.5rem;
+            padding: 2rem;
             border-radius: 8px;
-            border: 1px solid rgba(0, 255, 65, 0.3);
+            border: 1px solid rgba(0, 255, 65, 0.2);
             transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .card:hover {
             border-color: var(--neon-green);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+            box-shadow: 0 5px 25px rgba(0, 255, 65, 0.2);
             transform: translateY(-5px);
+        }
+
+        .card:hover::before {
+            opacity: 1;
         }
 
         .card h3 {
             color: var(--neon-green);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 i {
+            font-size: 1.2rem;
         }
 
         .card-meta {
@@ -276,11 +373,12 @@
             color: var(--neon-green);
             text-decoration: none;
             border-bottom: 1px solid transparent;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .card a:hover {
             border-bottom: 1px solid var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
         }
 
         .tags {
@@ -292,7 +390,7 @@
 
         .tag {
             background: rgba(0, 255, 65, 0.1);
-            padding: 0.25rem 0.75rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 3px;
             font-size: 0.75rem;
             border: 1px solid rgba(0, 255, 65, 0.3);
@@ -301,21 +399,34 @@
         /* Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
         .skill-category {
             background: var(--card-bg);
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 8px;
-            border-left: 3px solid var(--neon-green);
+            border-left: 4px solid var(--neon-green);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            box-shadow: 0 5px 20px rgba(0, 255, 65, 0.15);
+            transform: translateX(5px);
         }
 
         .skill-category h3 {
             color: var(--neon-green);
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-category h3 i {
+            font-size: 1.2rem;
         }
 
         .skill-category ul {
@@ -323,13 +434,19 @@
         }
 
         .skill-category li {
-            padding: 0.25rem 0;
+            padding: 0.4rem 0;
             color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .skill-category li:hover {
+            color: var(--text-primary);
         }
 
         .skill-category li:before {
             content: "▹ ";
             color: var(--neon-green);
+            font-weight: bold;
         }
 
         /* Contact Links */
@@ -344,48 +461,99 @@
         .contact-link {
             color: var(--neon-green);
             text-decoration: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.8rem 1.8rem;
             border: 2px solid var(--neon-green);
             border-radius: 4px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .contact-link:hover {
             background: var(--neon-green);
             color: var(--dark-bg);
-            box-shadow: 0 0 15px var(--neon-green);
+            box-shadow: 0 0 20px var(--neon-green);
+            transform: translateY(-2px);
         }
 
         /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid var(--neon-green);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            border-top: 2px solid var(--neon-green);
+            background: linear-gradient(180deg, var(--dark-bg) 0%, #0a0a0a 100%);
+        }
+
+        footer p {
+            margin: 1rem 0;
             color: var(--text-secondary);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .glitch {
+            .glitch-title {
                 font-size: 2rem;
+            }
+
+            .glitch-footer {
+                font-size: 1.2rem;
             }
             
             .cards {
                 grid-template-columns: 1fr;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .status-bar {
+                gap: 1rem;
+            }
+
+            .status-item {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .contact-link {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .terminal-output {
+                font-size: 0.8rem;
+            }
+
+            .encrypted-badge {
+                font-size: 0.75rem;
+                padding: 0.3rem 0.8rem;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <h1 class="glitch" data-text="Erick Tafel">Erick Tafel</h1>
-        <p class="DH4BI">QUxJQVMgPSBESDRCSQ==</p>
+        <p class="alias">QUxJQVMgPSBESDRCSQ==</p>
+        <h1 class="glitch-title" data-text="Erick Tafel">Erick Tafel</h1>
         <p class="subtitle">Cybersecurity Engineer</p>
         <div class="roles">
-            <span class="role-tag">Penetration Tester</span>
-            <span class="role-tag">Offensive Security</span>
-            <span class="role-tag">Red Team</span>
+            <span class="role-tag"><i class="fas fa-shield-alt"></i> Penetration Tester</span>
+            <span class="role-tag"><i class="fas fa-user-secret"></i> Offensive Security</span>
+            <span class="role-tag"><i class="fas fa-flag"></i> Red Team</span>
+        </div>
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-dot"></span>
+                <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
+            </div>
         </div>
     </header>
 
@@ -398,41 +566,38 @@
                 <div class="terminal-btn"></div>
             </div>
             <div class="terminal-output" id="output">
-                <div class="terminal-line"><span class="prompt">n00b@dh4bi-domain:~$</span> banner</div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  @@@@@@@   @@@  @@@       @@@   @@@@@@@   @@@  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  @@@@@@@@  @@@  @@@      @@@@   @@@@@@@@  @@@  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  @@!  @@@  @@!  @@@     @@!@!   @@!  @@@  @@!  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  !@!  @!@  !@!  @!@    !@!!@!   !@   @!@  !@!  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  @!@  !@!  @!@!@!@!   @!! @!!   @!@!@!@   !!@  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  !@!  !!!  !!!@!!!!  !!!  !@!   !!!@!!!!  !!!  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  !!:  !!!  !!:  !!!  :!!:!:!!:  !!:  !!!  !!:  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  :!:  !:!  :!:  !:!  !:::!!:::  :!:  !:!  :!:  </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  ::::::    ::   :::       :::   ::::::    ::   </div>
-                <div class="terminal-line" style="white-space: pre-wrap;">  ::::       :   : :       :::   :::::     :    </div>          
-                <div class="terminal-line">Penetration Tester | Offensive Security </div>
-                <div class="terminal-line" style="margin-top: 1rem;"><span class="prompt">n00b@dh4bi-domain:~$</span> ls commands</div>
-                <div class="terminal-line">Available commands: about, skills, projects, writeups, certifications, contact, ls, cd, cat, pwd, whoami, find, clear, help</div>
-                <div class="terminal-line" style="margin-top: 1rem; color: #666;">// Hint: dh4bi is a free elf... </div>
+                <div class="terminal-line">
+                    <span class="encrypted-badge">
+                        <span class="status-dot"></span>
+                        <i class="fas fa-shield-virus">ENCRYPTED</i> 
+                    </span>
+                </div>
+                <div class="terminal-line" style="margin-top: 1rem;"><span class="prompt">dh4bi@portfolio:~$</span> ./init_system.sh</div>
+                <div class="terminal-line">[✓] Initializing secure connection...</div>
+                <div class="terminal-line">[✓] Loading portfolio modules...</div>
+                <div class="terminal-line">[✓] Systems operational</div>
+                <div class="terminal-line" style="margin-top: 1rem;"><span class="prompt">dh4bi@portfolio:~$</span> cat welcome.txt</div>
+                <div class="terminal-line">Welcome to DH4BI's domain. Type 'help' for available commands.</div>
             </div>
             <div class="terminal-input">
-                <span class="prompt">n00b@dh4bi-domain:~$</span>
-                <input type="text" id="terminal-command" placeholder="Try typing a command..." autocomplete="off">
+                <span class="prompt">dh4bi@portfolio:~$</span>
+                <input type="text" id="terminal-command" placeholder="Type a command..." autocomplete="off">
                 <span class="cursor"></span>
             </div>
         </div>
 
-        <!-- About Section -->
+        <!-- About -->
         <section id="about">
-            <h2>$ whoami</h2>
-            <p>Cybersecurity engineer with expertise in offensive security, penetration testing, and red team operations. Specializing in Active Directory exploitation and network penetration testing. Currently pursuing CRTO certification and building practical skills through HackTheBox Pro Labs. Passionate about breaking things to make them more secure.</p>
+            <h2><i class="fas fa-terminal"></i> $ whoami</h2>
+            <p>Cybersecurity engineer with expertise in offensive security, penetration testing, and red team operations. Specializing in Active Directory exploitation, network penetration, and avionics security testing. Currently pursuing CRTO certification and building practical skills through HackTheBox Pro Labs. Passionate about breaking things to make them more secure.</p>
         </section>
 
         <!-- Certifications -->
         <section id="certifications">
-            <h2>$ cat certifications.txt</h2>
+            <h2><i class="fas fa-certificate"></i> $ cat certifications.txt</h2>
             <div class="cards">
                 <div class="card">
-                    <h3>OSCP+/OSCP</h3>
+                    <h3><i class="fas fa-skull-crossbones"></i> OSCP+/OSCP</h3>
                     <p class="card-meta">Offensive Security Certified Professional</p>
                     <p>Practical penetration testing certification focused on exploit development and privilege escalation.</p>
                     <div class="tags">
@@ -441,7 +606,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <h3>PNPT</h3>
+                    <h3><i class="fas fa-network-wired"></i> PNPT</h3>
                     <p class="card-meta">Practical Network Penetration Tester</p>
                     <p>Real-world network penetration testing with focus on Active Directory.</p>
                     <div class="tags">
@@ -450,7 +615,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <h3>PJPT</h3>
+                    <h3><i class="fas fa-code"></i> PJPT</h3>
                     <p class="card-meta">Practical Junior Penetration Tester</p>
                     <p>Foundational penetration testing skills and methodology.</p>
                     <div class="tags">
@@ -459,7 +624,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <h3>CompTIA Certifications</h3>
+                    <h3><i class="fas fa-shield-alt"></i> CompTIA Certifications</h3>
                     <p class="card-meta">CASP+ | Security+ | Network+ | A+</p>
                     <p>Foundational IT and cybersecurity certifications covering infrastructure, security concepts, and advanced security operations.</p>
                     <div class="tags">
@@ -472,10 +637,10 @@
 
         <!-- Skills -->
         <section id="skills">
-            <h2>$ cat skills.conf</h2>
+            <h2><i class="fas fa-tools"></i> $ cat skills.conf</h2>
             <div class="skills-grid">
                 <div class="skill-category">
-                    <h3>Penetration Testing</h3>
+                    <h3><i class="fas fa-user-ninja"></i> Penetration Testing</h3>
                     <ul>
                         <li>Network Penetration Testing</li>
                         <li>Web Application Security</li>
@@ -484,7 +649,7 @@
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3>Active Directory</h3>
+                    <h3><i class="fab fa-windows"></i> Active Directory</h3>
                     <ul>
                         <li>Kerberoasting</li>
                         <li>Pass-the-Hash/Ticket</li>
@@ -494,7 +659,7 @@
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3>Tools & Frameworks</h3>
+                    <h3><i class="fas fa-toolbox"></i> Tools & Frameworks</h3>
                     <ul>
                         <li>Metasploit Framework</li>
                         <li>Burp Suite Professional</li>
@@ -504,34 +669,34 @@
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3>Programming & Scripting</h3>
+                    <h3><i class="fas fa-code"></i> Programming & Scripting</h3>
                     <ul>
                         <li>Python (Security Automation)</li>
                         <li>PowerShell (AD Enumeration)</li>
                         <li>Bash Scripting</li>
-                        <li>Javascript</li>
+                        <li>JavaScript</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Projects/Writeups -->
+        <!-- Projects -->
         <section id="projects">
-            <h2>$ ls -la projects/</h2>
+            <h2><i class="fas fa-folder-open"></i> $ ls -la projects/</h2>
             <div class="cards">
                 <div class="card">
-                    <h3>CTF Writeups Collection</h3>
-                    <p class="card-meta">Various CTF Platforms</p>
-                    <p>Detailed writeups of Capture The Flag challenges including web exploitation, cryptography, forensics, and binary exploitation.</p>
+                    <h3><i class="fas fa-flag-checkered"></i> CTF Writeups & Notes</h3>
+                    <p class="card-meta">HackTheBox | TryHackMe | CTF Platforms</p>
+                    <p>Detailed writeups and notes from various CTF challenges, boxes, and competitions including techniques, tools, and methodologies used.</p>
                     <div class="tags">
-                        <span class="tag">Web Exploitation</span>
-                        <span class="tag">Cryptography</span>
-                        <span class="tag">Forensics</span>
+                        <span class="tag">HTB Boxes</span>
+                        <span class="tag">CTF Challenges</span>
+                        <span class="tag">Writeups</span>
                     </div>
-                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/CTFs" target="_blank">View on GitHub →</a></p>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1" target="_blank"><i class="fas fa-external-link-alt"></i> View on GitHub →</a></p>
                 </div>
                 <div class="card">
-                    <h3>Azure Honeypot Project</h3>
+                    <h3><i class="fas fa-cloud"></i> Azure Honeypot Project</h3>
                     <p class="card-meta">Cloud Security | SIEM</p>
                     <p>Deployed and configured Azure-based honeypot to analyze real-world attack patterns and implement SIEM monitoring.</p>
                     <div class="tags">
@@ -539,10 +704,10 @@
                         <span class="tag">SIEM</span>
                         <span class="tag">Threat Intelligence</span>
                     </div>
-                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/AzureHoneypot" target="_blank">View Documentation →</a></p>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/AzureHoneypot" target="_blank"><i class="fas fa-external-link-alt"></i> View Documentation →</a></p>
                 </div>
                 <div class="card">
-                    <h3>Raspberry Pi Security Projects</h3>
+                    <h3><i class="fab fa-raspberry-pi"></i> Raspberry Pi Security Projects</h3>
                     <p class="card-meta">Hardware Security | IoT</p>
                     <p>Collection of Raspberry Pi projects including network monitoring tools, wireless security testing, and custom security appliances.</p>
                     <div class="tags">
@@ -550,10 +715,10 @@
                         <span class="tag">Wireless Testing</span>
                         <span class="tag">Network Monitoring</span>
                     </div>
-                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/RaspberryPiProjects" target="_blank">View Projects →</a></p>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/RaspberryPiProjects" target="_blank"><i class="fas fa-external-link-alt"></i> View Projects →</a></p>
                 </div>
                 <div class="card">
-                    <h3>Security Automation Scripts</h3>
+                    <h3><i class="fas fa-robot"></i> Security Automation Scripts</h3>
                     <p class="card-meta">Python | PowerShell | Bash</p>
                     <p>Custom scripts for reconnaissance, enumeration, and security automation tasks used in penetration testing engagements.</p>
                     <div class="tags">
@@ -561,21 +726,21 @@
                         <span class="tag">Python</span>
                         <span class="tag">PowerShell</span>
                     </div>
-                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/Scripts" target="_blank">View Scripts →</a></p>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/Scripts" target="_blank"><i class="fas fa-external-link-alt"></i> View Scripts →</a></p>
                 </div>
                 <div class="card">
-                    <h3>Python Projects</h3>
-                    <p class="card-meta">Python Practice</p>
-                    <p>Projects and exercises from Harvard's CS50 course demonstrating Python programming fundamentals and problem-solving skills.</p>
+                    <h3><i class="fab fa-python"></i> Python Projects</h3>
+                    <p class="card-meta">Harvard CS50 | Python Practice</p>
+                    <p>Projects and exercises demonstrating Python programming fundamentals and problem-solving skills.</p>
                     <div class="tags">
                         <span class="tag">Python</span>
                         <span class="tag">Algorithms</span>
                         <span class="tag">Problem Solving</span>
                     </div>
-                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/CS50" target="_blank">View Projects →</a></p>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/CS50" target="_blank"><i class="fas fa-external-link-alt"></i> View Projects →</a></p>
                 </div>
                 <div class="card">
-                    <h3>Front-End Development</h3>
+                    <h3><i class="fas fa-laptop-code"></i> Front-End Development</h3>
                     <p class="card-meta">HTML | CSS | JavaScript</p>
                     <p>Web development projects demonstrating understanding of client-side technologies and web application architecture.</p>
                     <div class="tags">
@@ -583,218 +748,35 @@
                         <span class="tag">JavaScript</span>
                         <span class="tag">Web Security</span>
                     </div>
-                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/Front_End_Development" target="_blank">View Projects →</a> | <a href="https://codepen.io/ericktafel" target="_blank">CodePen →</a></p>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/Front_End_Development" target="_blank"><i class="fas fa-external-link-alt"></i> GitHub →</a> | <a href="https://codepen.io/ericktafel" target="_blank"><i class="fab fa-codepen"></i> CodePen →</a></p>
                 </div>
             </div>
         </section>
 
         <!-- Contact -->
         <section id="contact">
-            <h2>$ cat contact.txt</h2>
+            <h2><i class="fas fa-envelope"></i> $ cat contact.txt</h2>
             <div class="contact-links">
-                <a href="https://github.com/ericktafel1" class="contact-link" target="_blank">GitHub</a>
-                <a href="https://www.linkedin.com/in/ericktafel" class="contact-link" target="_blank">LinkedIn</a>
-                <a href="https://app.hackthebox.com/profile/1321737" class="contact-link" target="_blank">HackTheBox</a>
-                <a href="https://www.credly.com/users/erick-tafel/badges" class="contact-link" target="_blank">Credly Badges</a>
-                <a href="mailto:tafel_sec@protonmail.com" class="contact-link">Email</a>
+                <a href="https://github.com/ericktafel1" class="contact-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://www.linkedin.com/in/ericktafel" class="contact-link" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://app.hackthebox.com/profile/1321737" class="contact-link" target="_blank"><i class="fas fa-cube"></i> HackTheBox</a>
+                <a href="https://www.credly.com/users/erick-tafel/badges" class="contact-link" target="_blank"><i class="fas fa-award"></i> Credly</a>
+                <a href="mailto:tafel_sec@protonmail.com" class="contact-link"><i class="fas fa-envelope"></i> Email</a>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2024 Erick Tafel </p>
-        <p class="glitch" data-text="HackThePlanet">HackThePlanet</p>
+        <div style="margin-bottom: 1rem;">
+            <div class="status-item" style="display: inline-flex;">
+                <span class="status-dot"></span>
+                <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
+            </div>
+        </div>
+        <p>&copy; 2025 // Secure Channel</p>
+        <p class="glitch-footer" data-text="HackThePlanet">HackThePlanet</p>
     </footer>
 
     <script>
-        // Glitch text alternating
-        const glitchElement = document.querySelector('.glitch');
-        const texts = ['Erick Tafel', 'ʅǝɟɐꓕ ʞɔᴉɹƎ'];
-        let textIndex = 0;
-
-        setInterval(() => {
-            textIndex = (textIndex + 1) % texts.length;
-            glitchElement.textContent = texts[textIndex];
-            glitchElement.setAttribute('data-text', texts[textIndex]);
-        }, 4000);
-
-        // Terminal functionality
-        const terminalInput = document.getElementById('terminal-command');
-        const output = document.getElementById('output');
-        let currentDir = '/home/n00b/portfolio';
-        
-        const fileSystem = {
-            '/home/n00b/portfolio': ['about.txt', 'skills.conf', 'projects/', 'writeups/', 'certifications.txt', 'contact.txt', '.hidden/'],
-            '/home/n00b/portfolio/.hidden': ['docs/'],
-            '/home/n00b/portfolio/.hidden/docs': ['archive/'],
-            '/home/n00b/portfolio/.hidden/docs/archive': ['old_backups/'],
-            '/home/n00b/portfolio/.hidden/docs/archive/old_backups': ['temp/'],
-            '/home/n00b/portfolio/.hidden/docs/archive/old_backups/temp': ['misc/'],
-            '/home/n00b/portfolio/.hidden/docs/archive/old_backups/temp/misc': ['secret.txt']
-        };
-
-        const fileContents = {
-            'secret.txt': '42f749ade7f9e195bf475f37a44cafcb'
-        };
-
-        const commands = {
-            help: 'Available commands: about, skills, projects, writeups, certifications, contact, clear, help, ls, cd, cat, pwd, whoami, find',
-            about: 'Cybersecurity professional specializing in offensive security and penetration testing. Currently focused on Active Directory exploitation, C2 operations, and cloud security.',
-            skills: 'Core Skills: Penetration Testing, Active Directory Exploitation, Network Security, Web App Security, C2 Operations, Cloud Security (Azure/AWS), Python/PowerShell Scripting',
-            projects: 'CTFs, Azure Honeypot, Raspberry Pi Security Projects, Automation Scripts, and more. Scroll up to see detailed projects!',
-            writeups: 'Check out my GitHub for detailed CTF writeups and security project documentation!',
-            certifications: 'OSCP+/OSCP | PNPT | PJPT | CASP+ | Security+ | Network+ | A+ | Currently pursuing: CRTO',
-            contact: 'GitHub: github.com/ericktafel1 | LinkedIn: linkedin.com/in/ericktafel | HTB: https://app.hackthebox.com/profile/1321737 | Email: tafel_sec@protonmail.com',
-            whoami: 'n00b (but learning to be l33t)',
-            banner: `
-                                              
-@@@@@@@   @@@  @@@       @@@   @@@@@@@   @@@  
-@@@@@@@@  @@@  @@@      @@@@   @@@@@@@@  @@@  
-@@!  @@@  @@!  @@@     @@!@!   @@!  @@@  @@!  
-!@!  @!@  !@!  @!@    !@!!@!   !@   @!@  !@!  
-@!@  !@!  @!@!@!@!   @!! @!!   @!@!@!@   !!@  
-!@!  !!!  !!!@!!!!  !!!  !@!   !!!@!!!!  !!!  
-!!:  !!!  !!:  !!!  :!!:!:!!:  !!:  !!!  !!:  
-:!:  !:!  :!:  !:!  !:::!!:::  :!:  !:!  :!:  
-::::::    ::   :::       :::   ::::::    ::  
-::::       :   : :       :::   :::::     :    
-                                                                        
-                                  
-Penetration Tester | Offensive Security
-            `
-        };
-
-        function executeLs(args = '', path = currentDir) {
-            const showHidden = args.includes('-a') || args.includes('-la') || args.includes('-al');
-            
-            if (fileSystem[path]) {
-                let files = fileSystem[path];
-                if (!showHidden) {
-                    files = files.filter(f => !f.startsWith('.'));
-                }
-                return files.length > 0 ? files.join('  ') : '';
-            }
-            return 'ls: cannot access: No such file or directory';
-        }
-
-        function executeCd(args) {
-            if (!args) {
-                currentDir = '/home/n00b/portfolio';
-                return '';
-            }
-            
-            let newPath;
-            if (args.startsWith('/')) {
-                newPath = args;
-            } else if (args === '..') {
-                const parts = currentDir.split('/').filter(p => p);
-                parts.pop();
-                newPath = '/' + parts.join('/');
-            } else if (args === '.') {
-                return '';
-            } else {
-                newPath = currentDir === '/' ? `/${args}` : `${currentDir}/${args}`;
-            }
-            
-            if (fileSystem[newPath]) {
-                currentDir = newPath;
-                return '';
-            }
-            return `cd: ${args}: No such file or directory`;
-        }
-
-        function executeCat(args) {
-            if (!args) return 'cat: missing file operand';
-            
-            const fileName = args.split('/').pop();
-            
-            if (fileName === 'secret.txt' && currentDir === '/home/n00b/portfolio/.hidden/docs/archive/old_backups/temp/misc') {
-                return fileContents['secret.txt'] + '\n\nYou found the secret! 🚩 Now crack this MD5 hash...';
-            }
-            
-            const files = fileSystem[currentDir];
-            if (files && files.includes(fileName)) {
-                if (commands[fileName.replace('.txt', '').replace('.conf', '')]) {
-                    return commands[fileName.replace('.txt', '').replace('.conf', '')];
-                }
-                return `${fileName}: Permission denied or empty file`;
-            }
-            return `cat: ${args}: No such file or directory`;
-        }
-
-        function executeFind(args) {
-            if (!args) return 'find: missing argument';
-            const results = [];
-            for (const path in fileSystem) {
-                fileSystem[path].forEach(file => {
-                    if (file.includes(args) && !file.startsWith('.')) {
-                        results.push(`${path}/${file}`);
-                    }
-                });
-            }
-            return results.length > 0 ? results.join('\n') : `find: '${args}': No such file or directory`;
-        }
-
-        terminalInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const input = terminalInput.value.trim();
-                const command = input.toLowerCase();
-                const parts = input.split(' ');
-                const cmd = parts[0].toLowerCase();
-                const args = parts.slice(1).join(' ');
-
-                const commandLine = document.createElement('div');
-                commandLine.className = 'terminal-line';
-                const prompt = currentDir.replace('/home/n00b/portfolio', '~');
-                commandLine.innerHTML = `<span class="prompt">n00b@portfolio:${prompt}$</span> ${terminalInput.value}`;
-                output.appendChild(commandLine);
-
-                let response = '';
-
-                if (cmd === 'clear') {
-                    output.innerHTML = '';
-                    terminalInput.value = '';
-                    output.scrollTop = output.scrollHeight;
-                    return;
-                } else if (cmd === 'ls') {
-                    response = executeLs(args, currentDir);
-                } else if (cmd === 'cd') {
-                    response = executeCd(args);
-                } else if (cmd === 'cat') {
-                    response = executeCat(args);
-                } else if (cmd === 'pwd') {
-                    response = currentDir;
-                } else if (cmd === 'find') {
-                    response = executeFind(args);
-                } else if (commands[cmd]) {
-                    response = commands[cmd];
-                } else if (cmd) {
-                    response = `Command not found: ${cmd}. Try someting else, n00b.`;
-                }
-
-                if (response) {
-                    const responseLine = document.createElement('div');
-                    responseLine.className = 'terminal-line';
-                    responseLine.style.whiteSpace = 'pre-wrap';
-                    responseLine.textContent = response;
-                    output.appendChild(responseLine);
-                }
-
-                terminalInput.value = '';
-                output.scrollTop = output.scrollHeight;
-            }
-        });
-
-        // Smooth scroll for any internal links you might add
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+        // Glitch text alternating for title
+        const glit
