@@ -1,48 +1,3 @@
-        /* Footer prompt style */
-        .footer-prompt {
-            font-size: 1.2rem;
-            color: var(--neon-green);
-            font-family: 'Courier New', monospace;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.3rem;
-        }
-
-        .footer-prompt .cursor {
-            width: 10px;
-            height: 18px;
-        }        .glitch-title::before,
-        .glitch-title::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .glitch-title::before {
-            left: 3px;
-            text-shadow: -3px 0 var(--glitch-pink);
-            animation: glitch-slice-1 8s infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-        }
-
-        .glitch-title::after {
-            left: -3px;
-            text-shadow: 3px 0 var(--glitch-cyan);
-            animation: glitch-slice-2 8s infinite;
-            clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-        }        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 65, 0.05);
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            border-radius: 4px;
-        }
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -614,51 +569,41 @@
             <div class="status-ticker">
                 <div class="status-ticker-item">
                     <span class="status-dot"></span>
-                    <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
+                    <span> SYSTEMS ONLINE</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
-                    <span><i class="fas fa-shield-virus"></i> ENCRYPTION: AES-256</span>
+                    <span><i class="fas fa-shield-virus"></i> ENCRYPTION: ACTIVE</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
                     <span><i class="fas fa-lock"></i> SECURE COMMS: ACTIVE</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
                     <span><i class="fas fa-signal"></i> THREAT LEVEL: ELEVATED</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
-                    <span><i class="fas fa-clock"></i> LAST SYNC: 2024.12</span>
+                    <span><i class="fas fa-clock"></i> LAST SYNC: 2025.12</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
                     <span><i class="fas fa-crosshairs"></i> SECTOR: CYBER OPS</span>
                 </div>
                 <!-- Duplicate for seamless loop -->
                 <div class="status-ticker-item">
                     <span class="status-dot"></span>
-                    <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
+                    <span>SYSTEMS ONLINE</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
-                    <span><i class="fas fa-shield-virus"></i> ENCRYPTION: AES-256</span>
+                    <span><i class="fas fa-shield-virus"></i> ENCRYPTION: ACTIVE</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
                     <span><i class="fas fa-lock"></i> SECURE COMMS: ACTIVE</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
                     <span><i class="fas fa-signal"></i> THREAT LEVEL: ELEVATED</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
-                    <span><i class="fas fa-clock"></i> LAST SYNC: 2024.12</span>
+                    <span><i class="fas fa-clock"></i> LAST SYNC: 2025.12</span>
                 </div>
                 <div class="status-ticker-item">
-                    <span class="status-dot"></span>
                     <span><i class="fas fa-crosshairs"></i> SECTOR: CYBER OPS</span>
                 </div>
             </div>
@@ -672,7 +617,6 @@
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
-                <span class="encrypted-badge">
                 <span class="status-dot"></span>
                     <i class="fas fa-shield-virus">ENCRYPTED</i> 
                 </span>
@@ -697,13 +641,13 @@
 
         <!-- About -->
         <section id="about">
-            <h2><i class="fas fa-terminal"></i> $ whoami</h2>
+            <h2> $ whoami</h2>
             <p>Cybersecurity engineer with expertise in offensive security, penetration testing, and red team operations. Specializing in Active Directory exploitation, network penetration, and avionics security testing. Currently pursuing CRTO certification and building practical skills through HackTheBox Pro Labs. Passionate about breaking things to make them more secure.</p>
         </section>
 
         <!-- Certifications -->
         <section id="certifications">
-            <h2><i class="fas fa-certificate"></i> $ cat certifications.txt</h2>
+            <h2> $ cat certifications.txt</h2>
             <div class="cards">
                 <div class="card">
                     <h3><i class="fas fa-skull-crossbones"></i> OSCP+/OSCP</h3>
@@ -746,7 +690,7 @@
 
         <!-- Skills -->
         <section id="skills">
-            <h2><i class="fas fa-tools"></i> $ cat skills.conf</h2>
+            <h2> $ cat skills.conf</h2>
             <div class="skills-grid">
                 <div class="skill-category">
                     <h3><i class="fas fa-user-ninja"></i> Penetration Testing</h3>
@@ -791,7 +735,7 @@
 
         <!-- Projects -->
         <section id="projects">
-            <h2><i class="fas fa-folder-open"></i> $ ls -la projects/</h2>
+            <h2> $ ls -la projects/</h2>
             <div class="cards">
                 <div class="card">
                     <h3><i class="fas fa-flag-checkered"></i> CTF Writeups & Notes</h3>
@@ -864,7 +808,7 @@
 
         <!-- Contact -->
         <section id="contact">
-            <h2><i class="fas fa-envelope"></i> $ cat contact.txt</h2>
+            <h2> $ cat contact.txt</h2>
             <div class="contact-links">
                 <a href="https://github.com/ericktafel1" class="contact-link" target="_blank"><i class="fab fa-github"></i> GitHub</a>
                 <a href="https://www.linkedin.com/in/ericktafel" class="contact-link" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -876,7 +820,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2024 Erick Tafel (DH4BI)</p>
+        <p>&copy; 2025 Erick Tafel </p>
         <p class="footer-prompt">
             <span>dh4bi@portfolio:~$</span>
             <span class="cursor"></span>
