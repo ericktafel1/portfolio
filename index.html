@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DH4BI | Cybersecurity Engineer</title>
+    <title>Erick Tafel | DH4BI | Cybersecurity Engineer</title>
     <style>
         * {
             margin: 0;
@@ -32,6 +32,94 @@
             padding: 2rem;
         }
 
+        /* Glitch Effect */
+        .glitch {
+            position: relative;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+            animation: glitch-main 3s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00de;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00de;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-main {
+            0%, 90%, 100% {
+                transform: translate(0);
+            }
+            91%, 93%, 95%, 97%, 99% {
+                transform: translate(-2px, 2px);
+            }
+            92%, 94%, 96%, 98% {
+                transform: translate(2px, -2px);
+            }
+        }
+
+        @keyframes glitch-anim-1 {
+            0% {
+                clip: rect(61px, 9999px, 85px, 0);
+            }
+            20% {
+                clip: rect(53px, 9999px, 18px, 0);
+            }
+            40% {
+                clip: rect(28px, 9999px, 95px, 0);
+            }
+            60% {
+                clip: rect(71px, 9999px, 43px, 0);
+            }
+            80% {
+                clip: rect(14px, 9999px, 66px, 0);
+            }
+            100% {
+                clip: rect(88px, 9999px, 31px, 0);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip: rect(86px, 9999px, 31px, 0);
+            }
+            20% {
+                clip: rect(19px, 9999px, 94px, 0);
+            }
+            40% {
+                clip: rect(77px, 9999px, 12px, 0);
+            }
+            60% {
+                clip: rect(34px, 9999px, 68px, 0);
+            }
+            80% {
+                clip: rect(51px, 9999px, 29px, 0);
+            }
+            100% {
+                clip: rect(63px, 9999px, 85px, 0);
+            }
+        }
+
         /* Header/Hero Section */
         header {
             text-align: center;
@@ -44,8 +132,6 @@
         h1 {
             font-size: 3rem;
             margin-bottom: 0.5rem;
-            color: var(--neon-green);
-            text-shadow: 0 0 10px var(--neon-green);
         }
 
         .subtitle {
@@ -99,6 +185,8 @@
             color: var(--neon-green);
             font-size: 0.9rem;
             min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         .terminal-line {
@@ -182,6 +270,17 @@
             color: var(--text-secondary);
             font-size: 0.85rem;
             margin-bottom: 1rem;
+        }
+
+        .card a {
+            color: var(--neon-green);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .card a:hover {
+            border-bottom: 1px solid var(--neon-green);
         }
 
         .tags {
@@ -268,7 +367,7 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            h1 {
+            .glitch {
                 font-size: 2rem;
             }
             
@@ -280,8 +379,8 @@
 </head>
 <body>
     <header>
-        <h1>DH4BI</h1>
-        <p class="subtitle">QUxJQVMgPSBFcmljayBUYWZlbA==</p>
+        <h1 class="glitch" data-text="Erick Tafel">Erick Tafel</h1>
+        <p class="DH4BI">QUxJQVMgPSBESDRCSQ==</p>
         <p class="subtitle">Cybersecurity Engineer</p>
         <div class="roles">
             <span class="role-tag">Penetration Tester</span>
@@ -299,15 +398,16 @@
                 <div class="terminal-btn"></div>
             </div>
             <div class="terminal-output" id="output">
-                <div class="terminal-line"><span class="prompt">n00b@portfolio:~$</span> cat about.txt</div>
+                <div class="terminal-line"><span class="prompt">n00b@dh4bi-domain:~$</span> cat about.txt</div>
                 <div class="terminal-line">Cybersecurity professional specializing in offensive security and penetration testing.</div>
                 <div class="terminal-line">Currently focused on Active Directory exploitation, C2 operations, and cloud security.</div>
                 <div class="terminal-line">Avionics and IP penetration tester with OSCP+/OSCP, PNPT, PJPT, CASP+, Security+, Network+, A+.</div>
                 <div class="terminal-line" style="margin-top: 1rem;"><span class="prompt">n00b@dh4bi-domain:~$</span> ls commands</div>
-                <div class="terminal-line">Available commands: about, skills, projects, writeups, certifications, contact</div>
+                <div class="terminal-line">Available commands: about, skills, projects, writeups, certifications, contact, ls, cd, cat, pwd, whoami, find, clear, help</div>
+                <div class="terminal-line" style="margin-top: 1rem; color: #666;">// Hint: There might be hidden files somewhere... try ls -a</div>
             </div>
             <div class="terminal-input">
-                <span class="prompt">n00b@portfolio:~$</span>
+                <span class="prompt">n00b@dh4bi-domain:~$</span>
                 <input type="text" id="terminal-command" placeholder="Try typing a command..." autocomplete="off">
                 <span class="cursor"></span>
             </div>
@@ -316,7 +416,7 @@
         <!-- About Section -->
         <section id="about">
             <h2>$ whoami</h2>
-            <p>Cybersecurity engineer with expertise in offensive security, penetration testing, and red team operations. Specializing in Active Directory exploitation, network penetration, and avionics security testing. Passionate about breaking things to make them more secure.</p>
+            <p>Cybersecurity engineer with expertise in offensive security, penetration testing, and red team operations. Specializing in Active Directory exploitation, network penetration, and avionics security testing. Currently pursuing CRTO certification and building practical skills through HackTheBox Pro Labs. Passionate about breaking things to make them more secure.</p>
         </section>
 
         <!-- Certifications -->
@@ -327,16 +427,37 @@
                     <h3>OSCP+/OSCP</h3>
                     <p class="card-meta">Offensive Security Certified Professional</p>
                     <p>Practical penetration testing certification focused on exploit development and privilege escalation.</p>
+                    <div class="tags">
+                        <span class="tag">Exploit Development</span>
+                        <span class="tag">Privilege Escalation</span>
+                    </div>
                 </div>
                 <div class="card">
                     <h3>PNPT</h3>
                     <p class="card-meta">Practical Network Penetration Tester</p>
                     <p>Real-world network penetration testing with focus on Active Directory.</p>
+                    <div class="tags">
+                        <span class="tag">Active Directory</span>
+                        <span class="tag">Network Pentesting</span>
+                    </div>
                 </div>
                 <div class="card">
                     <h3>PJPT</h3>
                     <p class="card-meta">Practical Junior Penetration Tester</p>
                     <p>Foundational penetration testing skills and methodology.</p>
+                    <div class="tags">
+                        <span class="tag">Web App Security</span>
+                        <span class="tag">OWASP Top 10</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>CompTIA Certifications</h3>
+                    <p class="card-meta">CASP+ | Security+ | Network+ | A+</p>
+                    <p>Foundational IT and cybersecurity certifications covering infrastructure, security concepts, and advanced security operations.</p>
+                    <div class="tags">
+                        <span class="tag">Security Fundamentals</span>
+                        <span class="tag">Networking</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -352,6 +473,7 @@
                         <li>Web Application Security</li>
                         <li>Vulnerability Assessment</li>
                         <li>Exploit Development</li>
+                        <li>Avionics Security Testing</li>
                     </ul>
                 </div>
                 <div class="skill-category">
@@ -359,61 +481,102 @@
                     <ul>
                         <li>Kerberoasting</li>
                         <li>Pass-the-Hash/Ticket</li>
-                        <li>Credential Dumping</li>
-                        <li>Bloodhound</li>
+                        <li>Credential Dumping (Mimikatz)</li>
+                        <li>Bloodhound Analysis</li>
+                        <li>AS-REP Roasting</li>
                     </ul>
                 </div>
                 <div class="skill-category">
                     <h3>Tools & Frameworks</h3>
                     <ul>
-                        <li>Metasploit</li>
-                        <li>Burp Suite</li>
-                        <li>Nmap</li>
-                        <li>Kali Linux</li>
-                        <li>Wireshark</li>
+                        <li>Metasploit Framework</li>
+                        <li>Burp Suite Professional</li>
+                        <li>Nmap / Masscan</li>
+                        <li>Kali Linux / Parrot OS</li>
+                        <li>Wireshark / tcpdump</li>
                     </ul>
                 </div>
                 <div class="skill-category">
-                    <h3>Programming</h3>
+                    <h3>Programming & Scripting</h3>
                     <ul>
-                        <li>Python</li>
-                        <li>PowerShell</li>
-                        <li>Bash</li>
+                        <li>Python (Security Automation)</li>
+                        <li>PowerShell (AD Enumeration)</li>
+                        <li>Bash Scripting</li>
+                        <li>JavaScript (Web Security)</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Writeups/Projects -->
-        <section id="writeups">
-            <h2>$ ls -la writeups/</h2>
+        <!-- Projects/Writeups -->
+        <section id="projects">
+            <h2>$ ls -la projects/</h2>
             <div class="cards">
                 <div class="card">
-                    <h3>HTB Machine: [Name]</h3>
-                    <p class="card-meta">HackTheBox • Retired</p>
-                    <p>Detailed walkthrough of exploiting [vulnerability] to gain initial access and escalating privileges through [technique].</p>
+                    <h3>CTF Writeups Collection</h3>
+                    <p class="card-meta">Various CTF Platforms</p>
+                    <p>Detailed writeups of Capture The Flag challenges including web exploitation, cryptography, forensics, and binary exploitation.</p>
                     <div class="tags">
-                        <span class="tag">Active Directory</span>
-                        <span class="tag">Privilege Escalation</span>
+                        <span class="tag">Web Exploitation</span>
+                        <span class="tag">Cryptography</span>
+                        <span class="tag">Forensics</span>
                     </div>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/CTFs" target="_blank">View on GitHub →</a></p>
                 </div>
                 <div class="card">
-                    <h3>Custom Tool: [Tool Name]</h3>
-                    <p class="card-meta">Python • GitHub</p>
-                    <p>Automated reconnaissance tool for [specific purpose]. Features include [key features].</p>
+                    <h3>Azure Honeypot Project</h3>
+                    <p class="card-meta">Cloud Security | SIEM</p>
+                    <p>Deployed and configured Azure-based honeypot to analyze real-world attack patterns and implement SIEM monitoring.</p>
+                    <div class="tags">
+                        <span class="tag">Azure</span>
+                        <span class="tag">SIEM</span>
+                        <span class="tag">Threat Intelligence</span>
+                    </div>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/AzureHoneypot" target="_blank">View Documentation →</a></p>
+                </div>
+                <div class="card">
+                    <h3>Raspberry Pi Security Projects</h3>
+                    <p class="card-meta">Hardware Security | IoT</p>
+                    <p>Collection of Raspberry Pi projects including network monitoring tools, wireless security testing, and custom security appliances.</p>
+                    <div class="tags">
+                        <span class="tag">IoT Security</span>
+                        <span class="tag">Wireless Testing</span>
+                        <span class="tag">Network Monitoring</span>
+                    </div>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/RaspberryPiProjects" target="_blank">View Projects →</a></p>
+                </div>
+                <div class="card">
+                    <h3>Security Automation Scripts</h3>
+                    <p class="card-meta">Python | PowerShell | Bash</p>
+                    <p>Custom scripts for reconnaissance, enumeration, and security automation tasks used in penetration testing engagements.</p>
+                    <div class="tags">
+                        <span class="tag">Automation</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">PowerShell</span>
+                    </div>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/Scripts" target="_blank">View Scripts →</a></p>
+                </div>
+                <div class="card">
+                    <h3>CS50 Python Projects</h3>
+                    <p class="card-meta">Harvard CS50 | Python Practice</p>
+                    <p>Projects and exercises from Harvard's CS50 course demonstrating Python programming fundamentals and problem-solving skills.</p>
                     <div class="tags">
                         <span class="tag">Python</span>
-                        <span class="tag">Automation</span>
+                        <span class="tag">Algorithms</span>
+                        <span class="tag">Problem Solving</span>
                     </div>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/CS50" target="_blank">View Projects →</a></p>
                 </div>
                 <div class="card">
-                    <h3>Pro Lab: Dante</h3>
-                    <p class="card-meta">HackTheBox Pro Lab</p>
-                    <p>Complete walkthrough of HTB's Dante Pro Lab showcasing real-world network penetration testing methodology.</p>
+                    <h3>Front-End Development</h3>
+                    <p class="card-meta">HTML | CSS | JavaScript</p>
+                    <p>Web development projects demonstrating understanding of client-side technologies and web application architecture.</p>
                     <div class="tags">
-                        <span class="tag">Network Pentest</span>
-                        <span class="tag">Pivoting</span>
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Web Security</span>
                     </div>
+                    <p style="margin-top: 1rem;"><a href="https://github.com/ericktafel1/Front_End_Development" target="_blank">View Projects →</a> | <a href="https://codepen.io/ericktafel" target="_blank">CodePen →</a></p>
                 </div>
             </div>
         </section>
@@ -424,20 +587,32 @@
             <div class="contact-links">
                 <a href="https://github.com/ericktafel1" class="contact-link" target="_blank">GitHub</a>
                 <a href="https://www.linkedin.com/in/ericktafel" class="contact-link" target="_blank">LinkedIn</a>
-                <a href="https://app.hackthebox.com/public/users/1321737" class="contact-link" target="_blank">HackTheBox</a>
+                <a href="https://app.hackthebox.com/profile/1321737" class="contact-link" target="_blank">HackTheBox</a>
+                <a href="https://www.credly.com/users/erick-tafel/badges" class="contact-link" target="_blank">Credly Badges</a>
                 <a href="mailto:tafel_sec@protonmail.com" class="contact-link">Email</a>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2024 DH4BI | HackThePlanet </p>
+        <p class="glitch" data-text="Erick Tafel">&copy; 2024 Erick Tafel (DH4BI) | HackThePlanet</p>
     </footer>
 
     <script>
+        // Glitch text alternating
+        const glitchElement = document.querySelector('.glitch');
+        const texts = ['Erick Tafel (DH4BI)', 'DH4BI (Erick Tafel)'];
+        let textIndex = 0;
+
+        setInterval(() => {
+            textIndex = (textIndex + 1) % texts.length;
+            glitchElement.textContent = texts[textIndex];
+            glitchElement.setAttribute('data-text', texts[textIndex]);
+        }, 4000);
+
+        // Terminal functionality
         const terminalInput = document.getElementById('terminal-command');
         const output = document.getElementById('output');
-
         let currentDir = '/home/n00b/portfolio';
         
         const fileSystem = {
@@ -458,25 +633,31 @@
             help: 'Available commands: about, skills, projects, writeups, certifications, contact, clear, help, ls, cd, cat, pwd, whoami, find',
             about: 'Cybersecurity professional specializing in offensive security and penetration testing. Currently focused on Active Directory exploitation, C2 operations, and cloud security.',
             skills: 'Core Skills: Penetration Testing, Active Directory Exploitation, Network Security, Web App Security, C2 Operations, Cloud Security (Azure/AWS), Python/PowerShell Scripting',
-            projects: 'Check out my writeups and projects above! Working on HTB Pro Labs and building security automation tools.',
-            writeups: 'HTB machine writeups, custom tools, and pentest methodologies. Scroll up to see detailed writeups!',
-            certifications: 'OSCP+/OSCP | PNPT | PJPT | CASP+ | Security+ | Network+ | A+',
-            contact: 'GitHub: github.com/ericktafel1 | LinkedIn: linkedin.com/in/ericktafel | HTB: https://app.hackthebox.com/public/users/1321737',
-            whoami: 'cybersec_engineer'
+            projects: 'CTFs, Azure Honeypot, Raspberry Pi Security Projects, Automation Scripts, and more. Scroll up to see detailed projects!',
+            writeups: 'Check out my GitHub for detailed CTF writeups and security project documentation!',
+            certifications: 'OSCP+/OSCP | PNPT | PJPT | CASP+ | Security+ | Network+ | A+ | Currently pursuing: CRTO',
+            contact: 'GitHub: github.com/ericktafel1 | LinkedIn: linkedin.com/in/ericktafel | HTB: https://app.hackthebox.com/profile/1321737 | Email: tafel_sec@protonmail.com',
+            whoami: 'n00b (but learning to be l33t)',
+            banner: `
+    ____  __  __ __  __ ____  ____
+   / __ \\/ / / // / / // __ \\/  _/
+  / / / / /_/ // /_/ // /_/ // /  
+ / /_/ / __  /__  __// _, _// /   
+/_____/_/ /_/  /_/  /_/ |_/___/   
+                                  
+Erick Tafel | Cybersecurity Engineer
+Penetration Tester | Offensive Security
+            `
         };
 
         function executeLs(args = '', path = currentDir) {
-            // Parse ls flags
             const showHidden = args.includes('-a') || args.includes('-la') || args.includes('-al');
             
             if (fileSystem[path]) {
                 let files = fileSystem[path];
-                
-                // Filter out hidden files unless -a flag is used
                 if (!showHidden) {
                     files = files.filter(f => !f.startsWith('.'));
                 }
-                
                 return files.length > 0 ? files.join('  ') : '';
             }
             return 'ls: cannot access: No such file or directory';
@@ -514,7 +695,7 @@
             const fileName = args.split('/').pop();
             
             if (fileName === 'secret.txt' && currentDir === '/home/n00b/portfolio/.hidden/docs/archive/old_backups/temp/misc') {
-                return fileContents['secret.txt'];
+                return fileContents['secret.txt'] + '\n\nYou found the secret! 🚩 Now crack this MD5 hash...';
             }
             
             const files = fileSystem[currentDir];
@@ -541,65 +722,4 @@
         }
 
         terminalInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const input = terminalInput.value.trim();
-                const command = input.toLowerCase();
-                const parts = input.split(' ');
-                const cmd = parts[0].toLowerCase();
-                const args = parts.slice(1).join(' ');
-                
-                const commandLine = document.createElement('div');
-                commandLine.className = 'terminal-line';
-                const prompt = currentDir.replace('/home/n00b/portfolio', '~');
-                commandLine.innerHTML = `<span class="prompt">n00b@portfolio:${prompt}$</span> ${terminalInput.value}`;
-                output.appendChild(commandLine);
-
-                let response = '';
-
-                if (cmd === 'clear') {
-                    output.innerHTML = '';
-                    terminalInput.value = '';
-                    output.scrollTop = output.scrollHeight;
-                    return;
-                } else if (cmd === 'ls') {
-                    response = executeLs(args, currentDir);
-                } else if (cmd === 'cd') {
-                    response = executeCd(args);
-                } else if (cmd === 'cat') {
-                    response = executeCat(args);
-                } else if (cmd === 'pwd') {
-                    response = currentDir;
-                } else if (cmd === 'find') {
-                    response = executeFind(args);
-                } else if (commands[cmd]) {
-                    response = commands[cmd];
-                } else if (cmd) {
-                    response = `Command not found: ${cmd}. Try someting else, n00b.`;
-                }
-
-                if (response) {
-                    const responseLine = document.createElement('div');
-                    responseLine.className = 'terminal-line';
-                    responseLine.style.whiteSpace = 'pre-wrap';
-                    responseLine.textContent = response;
-                    output.appendChild(responseLine);
-                }
-
-                terminalInput.value = '';
-                output.scrollTop = output.scrollHeight;
-            }
-        });
-
-        // Smooth scroll for any internal links you might add
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+            if (e.key === 
