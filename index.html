@@ -1,9 +1,54 @@
+        /* Footer prompt style */
+        .footer-prompt {
+            font-size: 1.2rem;
+            color: var(--neon-green);
+            font-family: 'Courier New', monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
+        .footer-prompt .cursor {
+            width: 10px;
+            height: 18px;
+        }        .glitch-title::before,
+        .glitch-title::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch-title::before {
+            left: 3px;
+            text-shadow: -3px 0 var(--glitch-pink);
+            animation: glitch-slice-1 8s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .glitch-title::after {
+            left: -3px;
+            text-shadow: 3px 0 var(--glitch-cyan);
+            animation: glitch-slice-2 8s infinite;
+            clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+        }        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            border-radius: 4px;
+        }
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erick Tafel | Cybersecurity Engineer</title>
+    <title>Erick Tafel | DH4BI | Cybersecurity Engineer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -181,22 +226,39 @@
         }
 
         /* Status Indicators */
+        /* Status Bar - Side Scrolling Ticker */
         .status-bar {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
+            background: rgba(0, 255, 65, 0.05);
+            border-top: 1px solid var(--neon-green);
+            border-bottom: 1px solid var(--neon-green);
+            overflow: hidden;
+            padding: 0.8rem 0;
+            position: relative;
             margin-top: 2rem;
-            flex-wrap: wrap;
         }
 
-        .status-item {
+        .status-ticker {
             display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        .status-ticker-item {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 255, 65, 0.05);
-            border: 1px solid rgba(0, 255, 65, 0.3);
-            border-radius: 4px;
+            padding: 0 3rem;
+            font-size: 0.9rem;
+            color: var(--neon-green);
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         .status-dot {
@@ -500,7 +562,6 @@
             .glitch-footer {
                 font-size: 1.2rem;
             }
-            
             .cards {
                 grid-template-columns: 1fr;
             }
@@ -550,9 +611,56 @@
             <span class="role-tag"><i class="fas fa-flag"></i> Red Team</span>
         </div>
         <div class="status-bar">
-            <div class="status-item">
-                <span class="status-dot"></span>
-                <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
+            <div class="status-ticker">
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-shield-virus"></i> ENCRYPTION: AES-256</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-lock"></i> SECURE COMMS: ACTIVE</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-signal"></i> THREAT LEVEL: ELEVATED</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-clock"></i> LAST SYNC: 2024.12</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-crosshairs"></i> SECTOR: CYBER OPS</span>
+                </div>
+                <!-- Duplicate for seamless loop -->
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-shield-virus"></i> ENCRYPTION: AES-256</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-lock"></i> SECURE COMMS: ACTIVE</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-signal"></i> THREAT LEVEL: ELEVATED</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-clock"></i> LAST SYNC: 2024.12</span>
+                </div>
+                <div class="status-ticker-item">
+                    <span class="status-dot"></span>
+                    <span><i class="fas fa-crosshairs"></i> SECTOR: CYBER OPS</span>
+                </div>
             </div>
         </div>
     </header>
@@ -564,13 +672,14 @@
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
+                <span class="encrypted-badge">
+                <span class="status-dot"></span>
+                    <i class="fas fa-shield-virus">ENCRYPTED</i> 
+                </span>
             </div>
             <div class="terminal-output" id="output">
                 <div class="terminal-line">
-                    <span class="encrypted-badge">
-                        <span class="status-dot"></span>
-                        <i class="fas fa-shield-virus">ENCRYPTED</i> 
-                    </span>
+
                 </div>
                 <div class="terminal-line" style="margin-top: 1rem;"><span class="prompt">dh4bi@portfolio:~$</span> ./init_system.sh</div>
                 <div class="terminal-line">[✓] Initializing secure connection...</div>
@@ -767,14 +876,11 @@
     </div>
 
     <footer>
-        <div style="margin-bottom: 1rem;">
-            <div class="status-item" style="display: inline-flex;">
-                <span class="status-dot"></span>
-                <span><i class="fas fa-server"></i> SYSTEMS ONLINE</span>
-            </div>
-        </div>
-        <p>&copy; 2025 // Secure Channel</p>
-        <p class="glitch-footer" data-text="HackThePlanet">HackThePlanet</p>
+        <p>&copy; 2024 Erick Tafel (DH4BI)</p>
+        <p class="footer-prompt">
+            <span>dh4bi@portfolio:~$</span>
+            <span class="cursor"></span>
+        </p>
     </footer>
 
     <script>
