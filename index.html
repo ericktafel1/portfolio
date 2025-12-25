@@ -869,7 +869,7 @@ const fs = {
    HELPERS
 ======================= */
 function print(text = "") {
-  const line = document.createElement("div");Q2jDoG8gYW5oIGhhIQ==
+  const line = document.createElement("div");
   line.className = "terminal-line";
   line.textContent = text;
   output.appendChild(line);
@@ -882,24 +882,36 @@ function printPrompt(cmd) {
   output.appendChild(line);
 }
 
-function resolve(path) {
+function resolvePath(path) {
   if (!path || path === "~") return fs["~"];
-  if (cwd === "~" && fs["~"][path]) return fs["~"][path];
-  return null;
+  
+  let current = cwd === "~" ? fs["~"] : fs[cwd];
+  const parts = path.split("/").filter(p => p);
+
+  for (let part of parts) {
+    if (part === "..") {
+      current = fs["~"]; // simple shell: parent of any folder is home
+    } else if (current[part]) {
+      current = current[part];
+    } else {
+      return null;
+    }
+  }
+  return current;
 }
 
 /* =======================
    COMMAND HANDLER
 ======================= */
 function runCommand(cmd) {
-  const [command, arg] = cmd.split(" ");
+  const parts = cmd.split(" ").filter(p => p);
+  const command = parts[0];
+  const arg = parts.slice(1).join(" ");
 
   switch (command) {
     case "help":
       print("Available commands:");
-      print("  banner   help   whoami");
-      print("  ls       cd     cat");
-      print("  clear");
+      print("  banner   help   whoami   ls   cd   cat   clear");
       break;
 
     case "banner":
@@ -911,8 +923,8 @@ function runCommand(cmd) {
       break;
 
     case "ls": {
-      const dir = resolve(arg);
-      if (typeof dir === "object") {
+      const dir = resolvePath(arg || cwd);
+      if (dir && typeof dir === "object") {
         Object.keys(dir).forEach(k => print(k));
       } else {
         print("No such directory");
@@ -920,20 +932,26 @@ function runCommand(cmd) {
       break;
     }
 
-    case "cd":
-      if (arg === "~" || arg === "..") {
+    case "cd": {
+      if (!arg || arg === "~") {
         cwd = "~";
-      } else if (fs["~"][arg]) {
-        cwd = arg;
       } else {
-        print("No such directory");
+        const dir = resolvePath(arg);
+        if (dir && typeof dir === "object") {
+          cwd = arg;
+        } else {
+          print("No such directory");
+        }
       }
       break;
+    }
 
     case "cat": {
-      const file = resolve(arg);
+      const file = resolvePath(arg);
       if (typeof file === "string") {
         print(file);
+      } else if (typeof file === "object") {
+        print(`${arg}: is a directory`);
       } else {
         print("File not found");
       }
@@ -949,7 +967,7 @@ function runCommand(cmd) {
       print("Type 'help' for available commands.");
   }
 }
-
+    
 /* =======================
    INPUT LISTENER
 ======================= */
