@@ -607,13 +607,17 @@ footer {
     </style>
 </head>
 <body>
-    <nav class="top-nav">
-    <div class="nav-links">
-        <a href="#about"><i class="fas fa-user"></i> whoami</a>
-        <a href="#certifications"><i class="fas fa-certificate"></i> Certs</a>
-        <a href="#skills"><i class="fas fa-tools"></i> Skills</a>
-        <a href="#projects"><i class="fas fa-code-branch"></i> Projects</a>
-        <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+<nav class="hacker-nav" id="hackerNav">
+    <div class="nav-toggle" onclick="toggleNav()">
+        <i class="fas fa-terminal"></i>
+    </div>
+    
+    <div class="nav-menu">
+        <a href="#about" onclick="toggleNav()">WHOAMI</a>
+        <a href="#certifications" onclick="toggleNav()">CERTS</a>
+        <a href="#skills" onclick="toggleNav()">SKILLS</a>
+        <a href="#projects" onclick="toggleNav()">PROJECTS</a>
+        <a href="#contact" onclick="toggleNav()">CONTACT</a>
     </div>
 </nav>
     <header>
@@ -1107,4 +1111,67 @@ input.addEventListener("keydown", e => {
 // Added this to make sure focus works even if they click outside
 document.addEventListener("click", () => input.focus());
 window.onload = bootSequence;
+    .hacker-nav {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999; /* Ensures it stays above everything */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* The small square hacker symbol */
+.nav-toggle {
+    width: 50px;
+    height: 50px;
+    background: #000;
+    border: 2px solid var(--neon-green);
+    color: var(--neon-green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+    transition: all 0.3s ease;
+}
+
+.nav-toggle:hover {
+    box-shadow: 0 0 20px var(--neon-green);
+    background: var(--neon-green);
+    color: #000;
+}
+
+/* The hidden menu container */
+.nav-menu {
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 1px solid var(--neon-green);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transform: translateX(120%); /* Hidden by default */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* The active state (when clicked) */
+.hacker-nav.active .nav-menu {
+    transform: translateX(0);
+}
+
+.nav-menu a {
+    color: var(--glitch-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+
+.nav-menu a:hover {
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+}
 </script>
