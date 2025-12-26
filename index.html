@@ -888,55 +888,88 @@ async function print(text, color = "var(--neon-green)", isHtml = false) {
 
 async function bootSequence() {
     for (const line of bootLines) {
-        await new Promise(r => setTimeout(r, 150));
+        await new Promise(r => setTimeout(r, 100));
         print("[*] " + line);
     }
-    // Print Banner with smaller pre tag for mobile
-    const bannerPre = `<pre style="font-size: clamp(4px, 1.5vw, 12px); line-height: 1; margin: 10px 0;">${BANNER}</pre>`;
-    print(bannerPre, "var(--neon-green)", true);
-    print("Type 'help' to begin.", "var(--glitch-cyan)");
+    
+    // The banner is injected as HTML to preserve the <pre> formatting
+    const bannerHTML = `
+<pre style="font-size: clamp(5px, 1.4vw, 14px); line-height: 1.1; color: var(--neon-green); pointer-events: none;">
+${BANNER}
+</pre>`;
+    print(bannerHTML, "var(--neon-green)", true);
+    print("Welcome back, dh4bi.", "var(--text-secondary)");
+    print("Type 'help' to see available commands.");
 }
-
+    
 function runCommand(cmd) {
-  const parts = cmd.toLowerCase().split(" ");
-  const command = parts[0];
-  const arg = parts[1];
+  const args = cmd.trim().split(/\s+/);
+  const command = args[0].toLowerCase();
+  const flags = args.filter(arg => arg.startsWith("-"));
+  const pathArg = args.filter(arg => !arg.startsWith("-") && arg !== command)[0];
 
   switch (command) {
+    case "ls":
+      // Determine which directory object to look at based on current working directory
+      let currentDirObj = (cwd === "~") ? fs["~"] : fs["~"]["projects"];
+      
+      // If we are deeper in .hidden
+      if (cwd.includes(".hidden")) currentDirObj = fs["~"]["projects"][".hidden"];
+
+      const allFiles = Object.keys(currentDirObj);
+      const isShowAll = flags.some(f => f.includes("a"));
+
+      if (isShowAll) {
+        // Show everything including hidden
+        print(".    ..    " + allFiles.join("    "));
+      } else {
+        // Filter out files starting with "."
+        const visible = allFiles.filter(f => !f.startsWith("."));
+        print(visible.join("    "));
+      }
+      break;
+
+    case "cd":
+      const dest = pathArg;
+      if (!dest || dest === "~") {
+        cwd = "~";
+      } else if (dest === "..") {
+        if (cwd === "~/projects/.hidden") cwd = "~/projects";
+        else cwd = "~";
+      } else if (dest === "projects" && cwd === "~") {
+        cwd = "~/projects";
+      } else if (dest === ".hidden" && cwd === "~/projects") {
+        cwd = "~/projects/.hidden";
+      } else {
+        print(`bash: cd: ${dest}: No such directory`);
+      }
+      break;
+
+    case "cat":
+      let fileObj;
+      if (cwd === "~") fileObj = fs["~"][pathArg];
+      else if (cwd === "~/projects") fileObj = fs["~"]["projects"][pathArg];
+      else if (cwd === "~/projects/.hidden") fileObj = fs["~"]["projects"][".hidden"][pathArg];
+
+      if (fileObj && typeof fileObj === "string") {
+        print(fileObj);
+      } else if (fileObj && typeof fileObj === "object") {
+        print(`cat: ${pathArg}: Is a directory`);
+      } else {
+        print(`cat: ${pathArg}: No such file`);
+      }
+      break;
+
     case "help":
-      print("Available: ls, cd, cat, clear, whoami, help");
+      print("Commands: ls [-a], cd [dir], cat [file], clear, whoami");
       break;
-    case "whoami":
-      print("Erick Tafel - Red Teamer / Security Researcher");
-      break;
+
     case "clear":
       output.innerHTML = "";
       break;
-    case "ls":
-        let target = (cwd === "~") ? fs["~"] : fs["~"]["projects"];
-        if (arg === "-a") {
-            print(Object.keys(target).join("    "));
-        } else {
-            print(Object.keys(target).filter(f => !f.startsWith(".")).join("    "));
-        }
-        break;
-    case "cd":
-        if (arg === "projects") cwd = "~/projects";
-        else if (arg === ".." || arg === "~") cwd = "~";
-        else if (arg === ".hidden" && cwd === "~/projects") cwd = "~/projects/.hidden";
-        else print("Directory not found.");
-        break;
-    case "cat":
-        if (arg === "flag.txt" && cwd === "~/projects/.hidden") {
-            print("42f7491d90f6e52c8034731b3433a005", "var(--glitch-pink)");
-        } else if (arg === "about.txt" && cwd === "~") {
-            print(fs["~"]["about.txt"]);
-        } else {
-            print("File not found or access denied.");
-        }
-        break;
+
     default:
-      print(`Command not found: ${command}`);
+      print(`command not found: ${command}`);
   }
 }
 
