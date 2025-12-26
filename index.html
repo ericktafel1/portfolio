@@ -892,7 +892,6 @@ footer {
 const input = document.getElementById("terminal-command");
 const output = document.getElementById("output");
 
-// Responsive ASCII Banner
 const BANNER = `
 ██████╗ ██╗  ██╗██╗  ██╗██████╗ ██╗
 ██╔══██╗██║  ██║██║  ██║██╔══██╗██║
@@ -903,14 +902,10 @@ const BANNER = `
 
 let cwd = "~";
 
-// File System - Matching your HTML content
 const fs = {
   "~": {
-    ".hidden_flag.txt": "CONGRATULATIONS! You found the hidden operator logs. [THREAT LEVEL: REDACTED] [PASSWORD REVEALED: 42f749ade7f9e195bf475f37a44cafcb]", // Add this hidden file
+    ".hidden_flag.txt": "CONGRATULATIONS! You found the hidden operator logs. [THREAT LEVEL: REDACTED] [PASSWORD REVEALED: 42f749ade7f9e195bf475f37a44cafcb]",
     "welcome.txt": "Welcome to DH4BI's domain. Type 'help' for available commands.",
-    // ... rest of your files
-    "welcome.txt": "Welcome to DH4BI's domain. Type 'help' for available commands.",
-    
     "certifications.txt": `
 [+] OFFENSIVE SECURITY
     - OSCP+/OSCP (Active Directory, Network Pentesting, Web App Security, Exploit Development, PrivEsc)
@@ -921,7 +916,6 @@ const fs = {
 
 [+] COMPTIA
     - CASP+, Security+, Network+, A+`,
-    
     "skills.conf": `
 # Penetration Testing
 network_pentest=true
@@ -940,16 +934,14 @@ AS-REP_roasting=true
 frameworks=[Metasploit, C2]
 tools=[Kali, nxc, Nmap, ligolo, rustscan, feroxbuster, ...]
 scripting=[Python, PowerShell, Bash]`,
-    
     "contact.txt": `
 ---------------------------------------------------------
 | GitHub   | https://github.com/ericktafel1             |
-| LinkedIn | https://www.linkedin.com/in/ericktafel     |
+| LinkedIn | https://www.linkedin.com/in/ericktafel      |
 | HTB      | https://app.hackthebox.com/profile/1321737 |
-| Email    | tafel_sec@protonmail.com                   |
+| Email    | tafel_sec@protonmail.com                    |
 ---------------------------------------------------------`,
-    
-"usr": {
+    "usr": {
         "bin": {
             "nmap": "...no",
             "metasploit": "...absolutely not"
@@ -965,7 +957,6 @@ scripting=[Python, PowerShell, Bash]`,
       "azure_honeypot": "Deployed Azure Sentinel honeypot to map live attack vectors.",
       "rpi_security": "Hardware security projects using Raspberry Pi.",
       "auto_scripts.py": "Python & Bash automation for reconnaissance.",
-      // The Secret Tunnel
       ".ssh_tunnel": {
             "BackupFiles": {
                 "ArchivedPasswords": {
@@ -979,8 +970,6 @@ scripting=[Python, PowerShell, Bash]`,
   }
 };
 
-// Advanced Boot Sequence
-// Replace the bootLines array and bootSequence function in your <script>
 const bootLines = [
     { text: "Initializing DH4BI Kernel 1.2.25...", color: "var(--text-secondary)" },
     { text: "[ OK ] Loading secure_module...", color: "var(--neon-green)" },
@@ -989,7 +978,7 @@ const bootLines = [
     { text: "[ OK ] IPS bypassed successfully.", color: "var(--neon-green)" },
     { text: "SYSTEMS NOMINAL", color: "var(--glitch-white)" },
     { text: "Starting Terminal UI...", color: "var(--text-secondary)" },
-    { text: "Access Granted.", color: "var(--neon-red)" }, // FIXED: Added missing comma
+    { text: "Access Granted.", color: "var(--neon-green)" },
     { text: "dh4bi@portfolio:~$ cat /etc/operator.conf", color: "var(--neon-green)" },
     { text: '[+] DESIGNATION="Cybersecurity Engineer"', color: "var(--neon-green)" },
     { text: '[+] SPECIALTY="Penetration Testing, Offensive Security"', color: "var(--neon-green)" },
@@ -999,7 +988,6 @@ const bootLines = [
     { text: "[+] Intel gathering: OPERATIONAL", color: "var(--neon-green)" },
     { text: " ", color: "var(--neon-green)" }
 ];
-
 
 async function print(text, color = "var(--neon-green)", isHtml = false) {
     const line = document.createElement("div");
@@ -1015,122 +1003,108 @@ async function print(text, color = "var(--neon-green)", isHtml = false) {
     output.scrollTop = output.scrollHeight;
 }
 
+// HELPER FUNCTION: Safely get the folder object for current path
+function getCurrentFolder() {
+    let folder = fs["~"];
+    const parts = cwd.split('/').slice(1);
+    parts.forEach(part => {
+        if (part && folder[part]) folder = folder[part];
+    });
+    return folder;
+}
+
 async function bootSequence() {
     output.innerHTML = "";
     for (const line of bootLines) {
-        await new Promise(r => setTimeout(r, 150));
+        await new Promise(r => setTimeout(r, 100));
         print(line.text, line.color);
     }
-    
     await new Promise(r => setTimeout(r, 500));
-    
-    const bannerHTML = `<pre style="font-size: clamp(4px, 1.2vw, 14px); line-height: 1; color: var(--neon-green); white-space: pre;">${BANNER}</pre>`;    print(bannerHTML, "var(--neon-green)", true);
+    const bannerHTML = `<pre style="font-size: clamp(4px, 1.2vw, 14px); line-height: 1; color: var(--neon-green); white-space: pre;">${BANNER}</pre>`;
+    print(bannerHTML, "var(--neon-green)", true);
     print("Welcome back, dh4bi.", "var(--text-secondary)");
     print("Type 'help' to see available commands.");
 }
-    
+
 function runCommand(cmd) {
-  const args = cmd.trim().split(/\s+/);
-  const command = args[0].toLowerCase();
-  
-  // Basic path handling (only supports 1 level deep for this demo)
-  const pathArg = args[1];
+    const args = cmd.trim().split(/\s+/);
+    const command = args[0].toLowerCase();
+    const pathArg = args[1];
 
-  switch (command) {
-    case "whoami":
-       print("Erick Tafel - Cybersecurity Engineer | Red Team | Offensive Security");
-       break;
+    switch (command) {
+        case "whoami":
+            print("Erick Tafel - Cybersecurity Engineer | Red Team | Offensive Security");
+            break;
 
-    case "ls":
-    let currentDir = fs["~"];
-    const pathParts = cwd.split('/').slice(1); // skip ~
-    pathParts.forEach(part => { if(part) currentDir = currentDir[part]; });
-    
-    const showHidden = args.includes("-a");
-    const files = Object.keys(currentDir).filter(f => showHidden || !f.startsWith("."));
-    print(files.join("    "));
-    break;
+        case "ls":
+            const lsFolder = getCurrentFolder();
+            const showHidden = args.includes("-a");
+            const files = Object.keys(lsFolder).filter(f => showHidden || !f.startsWith("."));
+            print(files.join("    "));
+            break;
 
-case "cd":
-    if (!pathArg || pathArg === "~") {
-        cwd = "~";
-    } else if (pathArg === "..") {
-        if (cwd !== "~") {
-            const parts = cwd.split("/");
-            parts.pop();
-            cwd = parts.join("/");
-        }
-    } else {
-        // Find if directory exists in current location
-        let targetDir = fs["~"];
-        const currentParts = cwd.split('/').slice(1);
-        currentParts.forEach(part => { if(part) targetDir = targetDir[part]; });
+        case "cd":
+            if (!pathArg || pathArg === "~") {
+                cwd = "~";
+            } else if (pathArg === "..") {
+                if (cwd !== "~") {
+                    const parts = cwd.split("/");
+                    parts.pop();
+                    cwd = parts.join("/");
+                }
+            } else {
+                const cdFolder = getCurrentFolder();
+                if (cdFolder[pathArg] && typeof cdFolder[pathArg] === "object") {
+                    cwd = cwd === "~" ? `~/${pathArg}` : `${cwd}/${pathArg}`;
+                } else {
+                    print(`bash: cd: ${pathArg}: No such directory`);
+                }
+            }
+            break;
 
-        if (targetDir[pathArg] && typeof targetDir[pathArg] === "object") {
-            cwd = cwd === "~" ? `~/${pathArg}` : `${cwd}/${pathArg}`;
-        } else {
-            print(`bash: cd: ${pathArg}: No such directory`);
-        }
+        case "cat":
+            if (!pathArg) {
+                print("Usage: cat [filename]");
+                return;
+            }
+            const catFolder = getCurrentFolder();
+            const content = catFolder[pathArg];
+
+            if (typeof content === "string") {
+                print(content);
+            } else if (typeof content === "object") {
+                print(`cat: ${pathArg}: Is a directory`);
+            } else {
+                print(`cat: ${pathArg}: No such file or directory`);
+            }
+            break;
+
+        case "help":
+            print("Available commands: whoami, ls, cd, cat, clear");
+            break;
+
+        case "clear":
+            output.innerHTML = "";
+            break;
+
+        case "":
+            break;
+
+        default:
+            print(`bash: ${command}: command not found`);
     }
-    break;
-
-    case "cat":
-      if (!pathArg) {
-          print("Usage: cat [filename]");
-          return;
-      }
-      
-      // Navigate to the current directory in the virtual FS
-      let currentDir = fs["~"];
-      const pathParts = cwd.split('/').slice(1); // Remove the "~"
-      pathParts.forEach(part => {
-          if (part && currentDir[part]) {
-              currentDir = currentDir[part];
-          }
-      });
-
-      // Check if the file exists in this directory
-      const content = currentDir[pathArg];
-
-      if (typeof content === "string") {
-        print(content);
-      } else if (typeof content === "object") {
-        print(`cat: ${pathArg}: Is a directory`);
-      } else {
-        print(`cat: ${pathArg}: No such file or directory`);
-      }
-      break;
-
-    case "help":
-      print("Available commands:");
-      print("  whoami    - Display current user identity");
-      print("  ls        - List directory contents");
-      print("  cd [dir]  - Change directory");
-      print("  cat [file]- Display file contents");
-      print("  clear     - Clear terminal screen");
-      break;
-
-    case "clear":
-      output.innerHTML = "";
-      break;
-
-    case "":
-      break;
-
-    default:
-      print(`bash: ${command}: command not found`);
-  }
 }
 
-// Ensure the input field focuses automatically
 input.addEventListener("keydown", e => {
     if (e.key === "Enter") {
         const cmd = input.value;
         print(`dh4bi@portfolio:${cwd}$ ${cmd}`, "var(--text-secondary)");
-        runCommand(cmd); // This function must exist in your code
+        runCommand(cmd);
         input.value = "";
     }
 });
 
+// Added this to make sure focus works even if they click outside
+document.addEventListener("click", () => input.focus());
 window.onload = bootSequence;
 </script>
