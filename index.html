@@ -301,6 +301,7 @@ header {
 /* Ensure the input starts immediately after the prompt */
 .terminal-input {
     display: flex; /* Keeps prompt and input side-by-side */
+    flex-direction: row; /* Force horizontal */
     align-items: center;
     gap: 10px;
     width: 100%;
@@ -312,6 +313,7 @@ header {
 .input-wrapper {
     display: flex;
     flex: 1;
+    flex-direction: row;
     align-items: center;
 }
 
@@ -672,7 +674,7 @@ footer {
     
     <div class="terminal-input">
     <span class="prompt">dh4bi@portfolio:~$</span>
-    <div class="input-wrapper">
+    <div class="">
         <input type="text" id="terminal-command" autofocus autocomplete="off">
         <span class="block-cursor"></span>
     </div>
@@ -1152,7 +1154,14 @@ window.onload = bootSequence;
 }
 
     const cmdInput = document.getElementById("terminal-command");
+const updateInputWidth = () => {
+    // 1ch = width of one character. We add 0.5 for a tiny bit of breathing room.
+    const valLength = cmdInput.value.length;
+    cmdInput.style.width = valLength > 0 ? (valLength + 0.5) + "ch" : "1ch";
+};
 
+cmdInput.addEventListener("input", updateInputWidth);
+    
 cmdInput.addEventListener("input", function() {
     // 1ch is roughly the width of one character in a monospace font
     this.style.width = (this.value.length + 1) + "ch";
