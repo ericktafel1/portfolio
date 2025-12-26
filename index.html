@@ -881,21 +881,7 @@ scripting=[Python, PowerShell, Bash]`,
       "ctf_notes": "Detailed writeups for HTB & TryHackMe. Check GitHub.",
       "azure_honeypot": "Deployed Azure Sentinel honeypot to map live attack vectors.",
       "rpi_security": "Hardware security projects using Raspberry Pi.",
-      "auto_scripts.py": "Python & Bash automation for reconnaissance.",
-      // --- The Hidden Path Starts Here ---
-      ".sys": {
-          "logs.db": "Standard system logs. Nothing to see here...",
-          "config.old": "Old configuration file.",
-          ".do_not_enter": {
-              "trap.txt": "IT'S A TRAP! Just kidding. Or am I?",
-              ".deep_archive": {
-                  "flag.txt": "0W0{N1C3_TRY_BUT_K33P_L00K1NG}",
-                  ".real_secret": {
-                      "final_flag.txt": "DH4BI{M45T3R_0F_Th3_UNKN0WN}"
-                  }
-              }
-          }
-      }
+      "auto_scripts.py": "Python & Bash automation for reconnaissance."
     }
   }
 };
@@ -948,20 +934,11 @@ ${BANNER}
     print("Type 'help' to see available commands.");
 }
     
-// Helper to find the current directory object based on the "cwd" string
-function getDirByPath(path) {
-    let parts = path.replace("~", "root").split("/");
-    let current = { "root": fs["~"] };
-    for (let part of parts) {
-        if (part === "root" || part === "") continue;
-        current = current[part];
-    }
-    return current;
-}
-
 function runCommand(cmd) {
   const args = cmd.trim().split(/\s+/);
   const command = args[0].toLowerCase();
+  
+  // Basic path handling (only supports 1 level deep for this demo)
   const pathArg = args[1];
 
   switch (command) {
@@ -970,57 +947,63 @@ function runCommand(cmd) {
        break;
 
     case "ls":
-      let currentLoc = getDirByPath(cwd);
-      const showAll = args.includes("-a");
-      let files = Object.keys(currentLoc).filter(f => showAll || !f.startsWith("."));
-      
-      if (files.length === 0 && !showAll) {
-          print("total 0 (Hidden files detected. Use -a to view.)", "var(--text-secondary)");
-      } else {
-          print(files.join("    "));
+      // Check current directory
+      let dirContent;
+      if (cwd === "~") {
+          dirContent = Object.keys(fs["~"]);
+      } else if (cwd === "~/projects") {
+          dirContent = Object.keys(fs["~"]["projects"]);
       }
+      
+      // Filter out hidden files unless -a is used (simplified)
+      const visibleFiles = dirContent.join("    ");
+      print(visibleFiles);
       break;
 
     case "cd":
       if (!pathArg || pathArg === "~") {
         cwd = "~";
-      } else if (pathArg === "..") {
-        if (cwd !== "~") {
-            let parts = cwd.split("/");
-            parts.pop();
-            cwd = parts.length === 1 ? "~" : parts.join("/");
-        }
+      } else if (pathArg === "projects" && cwd === "~") {
+        cwd = "~/projects";
+      } else if (pathArg === ".." && cwd !== "~") {
+        cwd = "~";
       } else {
-        let currentLoc = getDirByPath(cwd);
-        if (currentLoc[pathArg] && typeof currentLoc[pathArg] === "object") {
-            cwd = `${cwd}/${pathArg}`.replace("//", "/");
-        } else {
-            print(`bash: cd: ${pathArg}: No such directory`, "red");
-        }
+        print(`bash: cd: ${pathArg}: No such file or directory`);
       }
       break;
 
     case "cat":
-      let currentDir = getDirByPath(cwd);
-      let content = currentDir[pathArg];
+      if (!pathArg) {
+          print("Usage: cat [filename]");
+          return;
+      }
+      
+      let content;
+      // Resolve file based on CWD
+      if (cwd === "~") {
+          if (fs["~"][pathArg]) content = fs["~"][pathArg];
+          // Allow cat projects/file.txt from root
+          else if (pathArg.startsWith("projects/") && fs["~"]["projects"][pathArg.split("/")[1]]) {
+              content = fs["~"]["projects"][pathArg.split("/")[1]];
+          }
+      } else if (cwd === "~/projects") {
+          if (fs["~"]["projects"][pathArg]) content = fs["~"]["projects"][pathArg];
+      }
 
-      if (pathArg === "flag.txt" && cwd.includes(".deep_archive")) {
-          print("Decrypting...", "var(--text-secondary)");
-          setTimeout(() => print("SIKE! That's the wrong flag. Look deeper...", "orange"), 600);
-      } else if (typeof content === "string") {
-          print(content);
+      if (typeof content === "string") {
+        print(content);
       } else if (typeof content === "object") {
-          print(`cat: ${pathArg}: Is a directory`);
+        print(`cat: ${pathArg}: Is a directory`);
       } else {
-          print(`cat: ${pathArg}: No such file or directory`);
+        print(`cat: ${pathArg}: No such file or directory`);
       }
       break;
 
     case "help":
       print("Available commands:");
       print("  whoami    - Display current user identity");
-      print("  ls [-a]   - List directory contents (use -a for hidden)");
-      print("  cd [dir]  - Change directory (use .. to go back)");
+      print("  ls        - List directory contents");
+      print("  cd [dir]  - Change directory");
       print("  cat [file]- Display file contents");
       print("  clear     - Clear terminal screen");
       break;
@@ -1029,8 +1012,11 @@ function runCommand(cmd) {
       output.innerHTML = "";
       break;
 
+    case "":
+      break;
+
     default:
-      if (command !== "") print(`bash: ${command}: command not found`);
+      print(`bash: ${command}: command not found`);
   }
 }
 
