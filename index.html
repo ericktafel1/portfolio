@@ -219,7 +219,7 @@ header {
 
         .status-ticker {
             display: flex;
-            animation: scroll-left 60s linear infinite;
+            animation: scroll-left 90s linear infinite;
             white-space: nowrap;
         }
 
@@ -310,6 +310,8 @@ header {
 
         .prompt {
             color: var(--neon-green);
+            white-space: nowrap; /* Prevents the $ from ever jumping to a new line */
+            margin-right: 10px; /* Space between $ and where you type */
         }
 /* Colors for the header buttons */
 .terminal-btn:nth-child(1) { background: #ff5f56; } /* Red */
