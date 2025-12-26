@@ -89,34 +89,19 @@
            0% to 90% = Static (No glitch)
            91% to 100% = Glitch Active 
         */
-        @keyframes glitch-slice-1 {
-            0%, 90% {
-                transform: translate(0);
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-                opacity: 1; 
-            }
-            92% {
-                transform: translate(-5px, -5px);
-                clip-path: polygon(0 10%, 100% 10%, 100% 55%, 0 55%);
-            }
-            94% {
-                transform: translate(5px, 5px);
-                clip-path: polygon(0 20%, 100% 20%, 100% 65%, 0 65%);
-            }
-            96% {
-                transform: translate(-5px, 5px);
-                clip-path: polygon(0 5%, 100% 5%, 100% 35%, 0 35%);
-            }
-            98% {
-                transform: translate(5px, -5px);
-                clip-path: polygon(0 15%, 100% 15%, 100% 45%, 0 45%);
-            }
-            100% {
-                transform: translate(0);
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            }
-        }
+@keyframes glitch-slice-1 {
+    /* 0s to 1.6s (20% of 8s): Active Glitch */
+    0%, 20% { transform: translate(0); clip-path: inset(0 0 0 0); }
+    2% { transform: translate(-3px, 2px); text-shadow: 2px 0 #fff; }
+    4% { transform: translate(3px, -2px); text-shadow: -2px 0 #ff8c00; } /* Orange */
+    6% { transform: translate(-1px, 3px); text-shadow: 2px 0 var(--neon-green); }
+    8% { transform: translate(2px, 1px); clip-path: inset(10% 0 40% 0); }
+    10% { transform: translate(0); }
+    /* 1.6s to 8s (21% to 100%): Normal Green Text */
+    21%, 100% { transform: translate(0); text-shadow: none; }
+}
 
+/* Apply similar logic to glitch-slice-2 with slightly different offsets */
         @keyframes glitch-slice-2 {
             0%, 90% {
                 transform: translate(0);
@@ -254,20 +239,19 @@
             min-height: 500px;
         }
 
-        .terminal-header {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--neon-green);
-        }
+.terminal-header {
+    display: flex;
+    gap: 8px; /* Standard spacing for buttons */
+    padding: 10px;
+    background: #1a1a1a;
+    border-bottom: 1px solid #333;
+}
 
-        .terminal-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--neon-green);
-        }
+.terminal-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
 
         .terminal-output {
             color: var(--neon-green);
@@ -294,23 +278,26 @@
         .prompt {
             color: var(--neon-green);
         }
+/* Specific colors for terminal buttons */
+.terminal-btn:nth-child(1) { background: #ff5f56; } /* Red */
+.terminal-btn:nth-child(2) { background: #ffbd2e; } /* Yellow */
+.terminal-btn:nth-child(3) { background: #27c93f; } /* Green */
 
-        .terminal-input {
-            display: flex;
-            align-items: center;
-            margin-top: 1rem;
-        }
+.terminal-input {
+    display: flex;
+    align-items: center;
+}
 
-        #terminal-command {
-            background: transparent;
-            border: none;
-            color: var(--neon-green);
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            outline: none;
-            flex: 1;
-            margin-left: 0.5rem;
-        }
+#terminal-command {
+    background: transparent;
+    border: none;
+    color: var(--neon-green);
+    font-family: 'Courier New', monospace;
+    outline: none;
+    width: auto;
+    flex: 0 1 auto; /* Prevents stretching to the far right */
+    margin-left: 5px;
+}
 
         .cursor {
             display: inline-block;
@@ -588,7 +575,7 @@ body {
 }
 
 footer {
-    margin-top: auto; /* Final insurance to keep it at the bottom */
+    padding-bottom: 2rem;
 }
     </style>
 </head>
