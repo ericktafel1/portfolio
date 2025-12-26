@@ -18,8 +18,8 @@
             --card-bg: #1a1a1a;
             --text-primary: #e0e0e0;
             --text-secondary: #a0a0a0;
-            --glitch-pink: #ff0080;
-            --glitch-cyan: #00ffff;
+            --glitch-orange: #ff8c00;
+            --glitch-white: #ffffff;
         }
 
         body {
@@ -40,7 +40,7 @@
         .glitch-title::before,
         .glitch-footer::before {
             left: 3px;
-            text-shadow: -3px 0 var(--glitch-pink);
+            text-shadow: -3px 0 var(--glitch-orange);
             /* 8s duration, infinite loop */
             animation: glitch-slice-1 8s infinite; 
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
@@ -49,11 +49,42 @@
         .glitch-title::after,
         .glitch-footer::after {
             left: -3px;
-            text-shadow: 3px 0 var(--glitch-cyan);
+            text-shadow: 3px 0 var(--glitch-white);
             animation: glitch-slice-2 8s infinite;
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
         }
+.glitch-title {
+    animation: glitch-loop 8s infinite;
+    color: var(--neon-green);
+    position: relative;
+}
 
+@keyframes glitch-loop {
+    /* 0s to 2s: Active Glitch (0% to 25% of 8s) */
+    0%, 25%, 100% { transform: none; text-shadow: none; color: var(--neon-green); }
+    5% { 
+        transform: translate(-2px, 2px); 
+        text-shadow: 2px 0 var(--glitch-white), -2px 0 var(--glitch-orange); 
+    }
+    10% { 
+        transform: translate(2px, -2px); 
+        text-shadow: -2px 0 var(--glitch-white), 2px 0 var(--glitch-green); 
+    }
+    15% { 
+        transform: translate(-1px, 1px); 
+        color: var(--glitch-white);
+    }
+    20% { 
+        transform: translate(1px, -1px); 
+        text-shadow: 2px 0 var(--glitch-orange); 
+    }
+    /* 2s to 8s: Normal Text (25% to 100% of 8s) */
+    26%, 99% { 
+        transform: none; 
+        text-shadow: none; 
+        color: var(--neon-green); 
+    }
+}
         /* Keyframes Logic: 
            0% to 90% = Static (No glitch)
            91% to 100% = Glitch Active 
