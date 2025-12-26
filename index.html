@@ -237,6 +237,8 @@
             padding: 1rem;
             margin: 2rem 0;
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+            width: 100%;
+            min-height: 500px;
         }
 
         .terminal-header {
@@ -256,10 +258,11 @@
 
         .terminal-output {
             color: var(--neon-green);
-            font-size: 0.9rem;
-            min-height: 200px;
-            max-height: 400px;
+            font-size: 0.95rem; /* Slightly larger text */
+            min-height: 450px;
+            max-height: 600px;
             overflow-y: auto;
+            font-family: 'Courier New', monospace;
         }
 
         .terminal-line {
