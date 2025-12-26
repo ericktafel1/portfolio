@@ -241,10 +241,11 @@
 
 .terminal-header {
     display: flex;
-    gap: 8px; /* Standard spacing for buttons */
+    gap: 8px; 
     padding: 10px;
     background: #1a1a1a;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--neon-green);
+    border-radius: 8px 8px 0 0;
 }
 
 .terminal-btn {
@@ -278,14 +279,15 @@
         .prompt {
             color: var(--neon-green);
         }
-/* Specific colors for terminal buttons */
-.terminal-btn:nth-child(1) { background: #ff5f56; } /* Red */
-.terminal-btn:nth-child(2) { background: #ffbd2e; } /* Yellow */
-.terminal-btn:nth-child(3) { background: #27c93f; } /* Green */
+/* Red, Yellow, Green Buttons */
+.terminal-btn:nth-child(1) { background: #ff5f56; } 
+.terminal-btn:nth-child(2) { background: #ffbd2e; } 
+.terminal-btn:nth-child(3) { background: #27c93f; } 
 
 .terminal-input {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 #terminal-command {
@@ -294,9 +296,8 @@
     color: var(--neon-green);
     font-family: 'Courier New', monospace;
     outline: none;
-    width: auto;
-    flex: 0 1 auto; /* Prevents stretching to the far right */
-    margin-left: 5px;
+    flex: 1; /* Allows typing to start immediately after the prompt */
+    margin-left: 8px;
 }
 
         .cursor {
@@ -500,8 +501,8 @@
         /* Footer */
         footer {
             text-align: center;
-            padding: 3rem 2rem;
-            margin-top: 5rem;
+            padding: 2rem 0;
+            margin-top: auto;
             border-top: 2px solid var(--neon-green);
             background: linear-gradient(180deg, var(--dark-bg) 0%, #0a0a0a 100%);
         }
