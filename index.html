@@ -37,98 +37,60 @@
         }
 
 /* Updated Glitch Animation - 8s Loop */
-        .glitch-title::before,
-        .glitch-footer::before {
-            left: 3px;
-            text-shadow: -3px 0 var(--glitch-orange);
-            /* 8s duration, infinite loop */
-            animation: glitch-slice-1 8s infinite; 
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
-
-        .glitch-title::after,
-        .glitch-footer::after {
-            left: -3px;
-            text-shadow: 3px 0 var(--glitch-white);
-            animation: glitch-slice-2 8s infinite;
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-        }
 .glitch-title {
-    animation: glitch-loop 8s infinite;
-    color: var(--neon-green);
     position: relative;
+    font-size: 4rem; /* Adjust as needed */
+    font-weight: bold;
+    color: var(--glitch-white);
+    letter-spacing: 3px;
+    z-index: 1;
 }
 
-@keyframes glitch-loop {
-    /* 0s to 2s: Active Glitch (0% to 25% of 8s) */
-    0%, 25%, 100% { transform: none; text-shadow: none; color: var(--neon-green); }
-    5% { 
-        transform: translate(-2px, 2px); 
-        text-shadow: 2px 0 var(--glitch-white), -2px 0 var(--glitch-orange); 
-    }
-    10% { 
-        transform: translate(2px, -2px); 
-        text-shadow: -2px 0 var(--glitch-white), 2px 0 var(--glitch-green); 
-    }
-    15% { 
-        transform: translate(-1px, 1px); 
-        color: var(--glitch-white);
-    }
-    20% { 
-        transform: translate(1px, -1px); 
-        text-shadow: 2px 0 var(--glitch-orange); 
-    }
-    /* 2s to 8s: Normal Text (25% to 100% of 8s) */
-    26%, 99% { 
-        transform: none; 
-        text-shadow: none; 
-        color: var(--neon-green); 
-    }
-}
-        /* Keyframes Logic: 
-           0% to 90% = Static (No glitch)
-           91% to 100% = Glitch Active 
-        */
-@keyframes glitch-slice-1 {
-    /* 0s to 1.6s (20% of 8s): Active Glitch */
-    0%, 20% { transform: translate(0); clip-path: inset(0 0 0 0); }
-    2% { transform: translate(-3px, 2px); text-shadow: 2px 0 #fff; }
-    4% { transform: translate(3px, -2px); text-shadow: -2px 0 #ff8c00; } /* Orange */
-    6% { transform: translate(-1px, 3px); text-shadow: 2px 0 var(--neon-green); }
-    8% { transform: translate(2px, 1px); clip-path: inset(10% 0 40% 0); }
-    10% { transform: translate(0); }
-    /* 1.6s to 8s (21% to 100%): Normal Green Text */
-    21%, 100% { transform: translate(0); text-shadow: none; }
+/* Common styles for the glitch layers */
+.glitch-title::before,
+.glitch-title::after {
+    content: attr(data-text); /* Pulls text from HTML data-text attribute */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
 }
 
-/* Apply similar logic to glitch-slice-2 with slightly different offsets */
-        @keyframes glitch-slice-2 {
-            0%, 90% {
-                transform: translate(0);
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-                opacity: 1;
-            }
-            92% {
-                transform: translate(5px, -5px);
-                clip-path: polygon(0 60%, 100% 60%, 100% 95%, 0 95%);
-            }
-            94% {
-                transform: translate(-5px, 5px);
-                clip-path: polygon(0 55%, 100% 55%, 100% 85%, 0 85%);
-            }
-            96% {
-                transform: translate(5px, 5px);
-                clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
-            }
-            98% {
-                transform: translate(-5px, -5px);
-                clip-path: polygon(0 50%, 100% 50%, 100% 80%, 0 80%);
-            }
-            100% {
-                transform: translate(0);
-                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-            }
-        }
+/* The Cyan/Green Layer */
+.glitch-title::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-green);
+    clip: rect(44px, 450px, 56px, 0); /* Fallback */
+    animation: glitch-anim-1 5s infinite linear alternate-reverse;
+}
+
+/* The Magenta/Orange Layer */
+.glitch-title::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--glitch-orange);
+    clip: rect(44px, 450px, 56px, 0); /* Fallback */
+    animation: glitch-anim-2 5s infinite linear alternate-reverse;
+}
+/* The Slicing Animations */
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(20% 0 30% 0); }
+    20% { clip-path: inset(60% 0 10% 0); }
+    40% { clip-path: inset(40% 0 50% 0); }
+    60% { clip-path: inset(80% 0 5% 0); }
+    80% { clip-path: inset(10% 0 70% 0); }
+    100% { clip-path: inset(30% 0 20% 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(15% 0 35% 0); }
+    20% { clip-path: inset(55% 0 15% 0); }
+    40% { clip-path: inset(45% 0 45% 0); }
+    60% { clip-path: inset(75% 0 10% 0); }
+    80% { clip-path: inset(5% 0 75% 0); }
+    100% { clip-path: inset(25% 0 25% 0); }
+}
         
 header {
     text-align: center;
