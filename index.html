@@ -120,42 +120,21 @@
 .glitch-title::after {
     content: attr(data-text);
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* 8s total loop, but the action happens in the first 1s */
+    animation: glitch-rapid 8s infinite linear;
 }
 
-/* The Green/Orange Slices */
-.glitch-title::before {
-    left: 2px;
-    text-shadow: -2px 0 var(--neon-green);
-    clip-path: inset(45% 0 45% 0);
-    animation: glitch-slice 5s infinite linear alternate-reverse;
-}
-
-/* The White/Orange Slices */
-.glitch-title::after {
-    left: -2px;
-    text-shadow: -2px 0 var(--glitch-orange);
-    clip-path: inset(10% 0 80% 0);
-    animation: glitch-slice 5s infinite linear alternate-reverse;
-}
-
-/* The Slicing Animation (Sharp horizontal jumps) */
-@keyframes glitch-slice {
-    0% { clip-path: inset(80% 0 1% 0); transform: translate(-5px); }
-    10% { clip-path: inset(10% 0 70% 0); transform: translate(5px); }
-    20% { clip-path: inset(40% 0 43% 0); transform: translate(-5px); }
-    30% { clip-path: inset(80% 0 1% 0); transform: translate(5px); }
-    40% { clip-path: inset(10% 0 70% 0); transform: translate(-5px); }
-    50% { clip-path: inset(40% 0 43% 0); transform: translate(5px); }
-    60% { clip-path: inset(50% 0 5% 0); transform: translate(-5px); }
-    70% { clip-path: inset(10% 0 70% 0); transform: translate(5px); }
-    80% { clip-path: inset(40% 0 43% 0); transform: translate(-5px); }
-    90% { clip-path: inset(10% 0 25% 0); transform: translate(5px); }
-    100% { clip-path: inset(25% 0 10% 0); transform: translate(-5px); }
+@keyframes glitch-rapid {
+    /* 0% to 10% is the fast glitching (0.8 seconds of action) */
+    0% { clip-path: inset(80% 0 1% 0); transform: translate(-5px); opacity: 1; }
+    2% { clip-path: inset(10% 0 70% 0); transform: translate(5px); }
+    4% { clip-path: inset(40% 0 43% 0); transform: translate(-5px); }
+    6% { clip-path: inset(10% 0 20% 0); transform: translate(5px); }
+    8% { clip-path: inset(25% 0 50% 0); transform: translate(-2px); }
+    10% { clip-path: inset(0 0 0 0); transform: translate(0); opacity: 1; }
+    /* 10.1% to 100% is the "still" period (7.2 seconds of silence) */
+    10.1%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); opacity: 0; }
 }
         
 header {
@@ -327,31 +306,36 @@ header {
     position: relative; /* Essential for absolute cursor positioning if used */
 }
 
+/* --- TERMINAL CURSOR FIX --- */
+.input-wrapper {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
 #terminal-command {
     background: transparent;
     border: none;
+    outline: none;
     color: var(--neon-green);
     font-family: 'Courier New', monospace;
-    outline: none;
-    flex: 1; /* This forces the input to start exactly after the '$' */
-    margin-left: 8px;
-    font-size: 0.95rem;
-    caret-color: transparent; 
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+    width: 10px; /* Start small */
+    flex: 0 1 auto; /* Allows it to grow with text */
+    caret-color: transparent; /* Hides default line */
 }
 
-/* The Custom Blinking Block */
-.custom-cursor {
+.block-cursor {
     display: inline-block;
     width: 10px;
     height: 1.2rem;
     background: var(--neon-green);
-    margin-left: 2px;
-    animation: cursor-blink 1s step-end infinite;
-    vertical-align: middle;
+    animation: blink 1s step-end infinite;
 }
 
-@keyframes cursor-blink {
-    0%, 100% { opacity: 1; }
+@keyframes blink {
     50% { opacity: 0; }
 }
 
@@ -684,10 +668,12 @@ footer {
     <div class="terminal-output" id="output"></div>
     
     <div class="terminal-input">
-        <span class="prompt">dh4bi@portfolio:~$</span>
-        <input type="text" id="terminal-command" placeholder="Type a command..." autocomplete="off">
-        <span class="cursor"></span>
+    <span class="prompt">dh4bi@portfolio:${cwd}$</span>
+    <div class="input-wrapper">
+        <input type="text" id="terminal-command" autofocus autocomplete="off">
+        <span class="block-cursor"></span>
     </div>
+</div>
 </div>
         <div class="status-bar">
             <div class="status-ticker">
@@ -1161,4 +1147,19 @@ window.onload = bootSequence;
     const nav = document.getElementById('hackerNav');
     nav.classList.toggle('active');
 }
+
+    const cmdInput = document.getElementById("terminal-command");
+
+cmdInput.addEventListener("input", function() {
+    // 1ch is roughly the width of one character in a monospace font
+    this.style.width = (this.value.length + 1) + "ch";
+});
+
+// Ensure it resets when command is sent
+cmdInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        // ... your existing runCommand(cmd) logic ...
+        setTimeout(() => { cmdInput.style.width = "1ch"; }, 10);
+    }
+});
 </script>
