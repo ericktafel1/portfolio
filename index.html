@@ -1089,7 +1089,7 @@ function runCommand(cmd) {
 
         case "ls":
             const lsFolder = getCurrentFolder();
-            const showHidden = args.includes("-a");
+            const showHidden = args.includes("-l");
             const files = Object.keys(lsFolder).filter(f => showHidden || !f.startsWith("."));
             print(files.join("    "));
             break;
